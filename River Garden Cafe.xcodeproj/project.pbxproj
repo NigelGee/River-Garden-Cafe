@@ -13,6 +13,10 @@
 		8BD4870A23DF342B00EE1140 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4870923DF342B00EE1140 /* Assets.xcassets */; };
 		8BD4870D23DF342B00EE1140 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4870C23DF342B00EE1140 /* Preview Assets.xcassets */; };
 		8BD4871023DF342B00EE1140 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4870E23DF342B00EE1140 /* LaunchScreen.storyboard */; };
+		8BD4871A23DF351B00EE1140 /* LoyaltyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871923DF351B00EE1140 /* LoyaltyCardView.swift */; };
+		8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871B23DF354B00EE1140 /* Reader.swift */; };
+		8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871D23DF362E00EE1140 /* StampView.swift */; };
+		8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871F23DF386B00EE1140 /* Modifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,11 @@
 		8BD4870C23DF342B00EE1140 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8BD4870F23DF342B00EE1140 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BD4871123DF342B00EE1140 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BD4871923DF351B00EE1140 /* LoyaltyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoyaltyCardView.swift; path = "SupportIng Views/LoyaltyCardView.swift"; sourceTree = "<group>"; };
+		8BD4871B23DF354B00EE1140 /* Reader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
+		8BD4871D23DF362E00EE1140 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StampView.swift; path = "River Garden Cafe/Supporting Files/StampView.swift"; sourceTree = SOURCE_ROOT; };
+		8BD4871F23DF386B00EE1140 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		8BD4872123DF394600EE1140 /* River Garden Cafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "River Garden Cafe.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +65,13 @@
 		8BD4870223DF342600EE1140 /* River Garden Cafe */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4872123DF394600EE1140 /* River Garden Cafe.entitlements */,
 				8BD4870323DF342600EE1140 /* AppDelegate.swift */,
 				8BD4870523DF342600EE1140 /* SceneDelegate.swift */,
 				8BD4870723DF342600EE1140 /* ContentView.swift */,
+				8BD4871923DF351B00EE1140 /* LoyaltyCardView.swift */,
+				8BD4871823DF34BD00EE1140 /* SupportIng Views */,
+				8BD4871723DF349300EE1140 /* Supporting Files */,
 				8BD4870923DF342B00EE1140 /* Assets.xcassets */,
 				8BD4870E23DF342B00EE1140 /* LaunchScreen.storyboard */,
 				8BD4871123DF342B00EE1140 /* Info.plist */,
@@ -73,6 +86,23 @@
 				8BD4870C23DF342B00EE1140 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8BD4871723DF349300EE1140 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8BD4871B23DF354B00EE1140 /* Reader.swift */,
+				8BD4871F23DF386B00EE1140 /* Modifiers.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8BD4871823DF34BD00EE1140 /* SupportIng Views */ = {
+			isa = PBXGroup;
+			children = (
+				8BD4871D23DF362E00EE1140 /* StampView.swift */,
+			);
+			path = "SupportIng Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,7 +178,11 @@
 			files = (
 				8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */,
 				8BD4870623DF342600EE1140 /* SceneDelegate.swift in Sources */,
+				8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */,
+				8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */,
+				8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */,
 				8BD4870823DF342600EE1140 /* ContentView.swift in Sources */,
+				8BD4871A23DF351B00EE1140 /* LoyaltyCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +318,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "River Garden Cafe/River Garden Cafe.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"River Garden Cafe/Preview Content\"";
 				DEVELOPMENT_TEAM = 5SYZQ266RF;
@@ -304,6 +339,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "River Garden Cafe/River Garden Cafe.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"River Garden Cafe/Preview Content\"";
 				DEVELOPMENT_TEAM = 5SYZQ266RF;

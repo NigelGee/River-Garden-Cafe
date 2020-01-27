@@ -10,7 +10,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        TabView {
+            LoyaltyCardView(reader: Reader())
+                .tabItem {
+                    Image(systemName: "circle.grid.3x3")
+                    Text("Loyaty")
+            }
+        }
     }
 }
 
