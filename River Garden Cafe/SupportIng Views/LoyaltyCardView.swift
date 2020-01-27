@@ -33,6 +33,7 @@ struct LoyaltyCardView: View {
                                                 .overlay(Capsule().stroke(Color.secondary, lineWidth: 2))
                                             if (col * 4) + row <= self.reader.adjustedStamp {
                                                 StampView()
+                                                    .accessibility(label: Text( "\(self.reader.adjustedStamp) Stamp\(self.reader.adjustedStamp < 2 ? "" : "s")"))
                                             }
                                             
                                             if (col * 4) + row == 8 {
@@ -42,6 +43,7 @@ struct LoyaltyCardView: View {
                                                         .fontWeight(.heavy)
                                                         .foregroundColor(.primary)
                                                 }
+                                                .accessibilityElement(children: .ignore)
                                             }
                                         }
                                         Spacer()

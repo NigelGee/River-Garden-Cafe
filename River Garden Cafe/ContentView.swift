@@ -16,6 +16,25 @@ struct ContentView: View {
                     Image(systemName: "circle.grid.3x3")
                     Text("Loyaty")
             }
+            
+            InfomationView()
+                .tabItem {
+                    Image(systemName: "questionmark.diamond")
+                    Text("Info")
+            }
+            
+            OrderView()
+                .tabItem {
+                    Image(systemName: "square.and.pencil")
+                    Text("Order")
+            }
+            
+            
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
+            }
         }
     }
 }

@@ -17,6 +17,12 @@
 		8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871B23DF354B00EE1140 /* Reader.swift */; };
 		8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871D23DF362E00EE1140 /* StampView.swift */; };
 		8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4871F23DF386B00EE1140 /* Modifiers.swift */; };
+		8BD4872523DF5D4F00EE1140 /* InfomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872423DF5D4F00EE1140 /* InfomationView.swift */; };
+		8BD4872723DF5ECB00EE1140 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872623DF5ECB00EE1140 /* MapView.swift */; };
+		8BD4872923DF605D00EE1140 /* InfoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872823DF605D00EE1140 /* InfoImageView.swift */; };
+		8BD4872B23DF67DA00EE1140 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872A23DF67DA00EE1140 /* WebView.swift */; };
+		8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872E23DF69E900EE1140 /* SettingsView.swift */; };
+		8BD4873123DF6A6A00EE1140 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873023DF6A6A00EE1140 /* OrderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +39,12 @@
 		8BD4871D23DF362E00EE1140 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StampView.swift; path = "River Garden Cafe/Supporting Files/StampView.swift"; sourceTree = SOURCE_ROOT; };
 		8BD4871F23DF386B00EE1140 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		8BD4872123DF394600EE1140 /* River Garden Cafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "River Garden Cafe.entitlements"; sourceTree = "<group>"; };
+		8BD4872423DF5D4F00EE1140 /* InfomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationView.swift; sourceTree = "<group>"; };
+		8BD4872623DF5ECB00EE1140 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		8BD4872823DF605D00EE1140 /* InfoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoImageView.swift; sourceTree = "<group>"; };
+		8BD4872A23DF67DA00EE1140 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		8BD4872E23DF69E900EE1140 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8BD4873023DF6A6A00EE1140 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +82,9 @@
 				8BD4870523DF342600EE1140 /* SceneDelegate.swift */,
 				8BD4870723DF342600EE1140 /* ContentView.swift */,
 				8BD4871923DF351B00EE1140 /* LoyaltyCardView.swift */,
+				8BD4872423DF5D4F00EE1140 /* InfomationView.swift */,
+				8BD4873023DF6A6A00EE1140 /* OrderView.swift */,
+				8BD4872E23DF69E900EE1140 /* SettingsView.swift */,
 				8BD4871823DF34BD00EE1140 /* SupportIng Views */,
 				8BD4871723DF349300EE1140 /* Supporting Files */,
 				8BD4870923DF342B00EE1140 /* Assets.xcassets */,
@@ -101,6 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				8BD4871D23DF362E00EE1140 /* StampView.swift */,
+				8BD4872823DF605D00EE1140 /* InfoImageView.swift */,
+				8BD4872623DF5ECB00EE1140 /* MapView.swift */,
+				8BD4872A23DF67DA00EE1140 /* WebView.swift */,
 			);
 			path = "SupportIng Views";
 			sourceTree = "<group>";
@@ -177,12 +195,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */,
+				8BD4873123DF6A6A00EE1140 /* OrderView.swift in Sources */,
 				8BD4870623DF342600EE1140 /* SceneDelegate.swift in Sources */,
 				8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */,
 				8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */,
 				8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */,
 				8BD4870823DF342600EE1140 /* ContentView.swift in Sources */,
+				8BD4872923DF605D00EE1140 /* InfoImageView.swift in Sources */,
+				8BD4872523DF5D4F00EE1140 /* InfomationView.swift in Sources */,
+				8BD4872723DF5ECB00EE1140 /* MapView.swift in Sources */,
+				8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */,
 				8BD4871A23DF351B00EE1140 /* LoyaltyCardView.swift in Sources */,
+				8BD4872B23DF67DA00EE1140 /* WebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
