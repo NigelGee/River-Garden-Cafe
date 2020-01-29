@@ -23,6 +23,8 @@
 		8BD4872B23DF67DA00EE1140 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872A23DF67DA00EE1140 /* WebView.swift */; };
 		8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872E23DF69E900EE1140 /* SettingsView.swift */; };
 		8BD4873123DF6A6A00EE1140 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873023DF6A6A00EE1140 /* OrderView.swift */; };
+		8BD4873323E00B1700EE1140 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873223E00B1700EE1140 /* Order.swift */; };
+		8BD4873523E04AE600EE1140 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873423E04AE600EE1140 /* Email.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		8BD4872A23DF67DA00EE1140 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		8BD4872E23DF69E900EE1140 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BD4873023DF6A6A00EE1140 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
+		8BD4873223E00B1700EE1140 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Order.swift; path = "River Garden Cafe/Order.swift"; sourceTree = SOURCE_ROOT; };
+		8BD4873423E04AE600EE1140 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Email.swift; path = "River Garden Cafe/Email.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 		8BD4871723DF349300EE1140 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4873423E04AE600EE1140 /* Email.swift */,
+				8BD4873223E00B1700EE1140 /* Order.swift */,
 				8BD4871B23DF354B00EE1140 /* Reader.swift */,
 				8BD4871F23DF386B00EE1140 /* Modifiers.swift */,
 			);
@@ -200,10 +206,12 @@
 				8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */,
 				8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */,
 				8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */,
+				8BD4873323E00B1700EE1140 /* Order.swift in Sources */,
 				8BD4870823DF342600EE1140 /* ContentView.swift in Sources */,
 				8BD4872923DF605D00EE1140 /* InfoImageView.swift in Sources */,
 				8BD4872523DF5D4F00EE1140 /* InfomationView.swift in Sources */,
 				8BD4872723DF5ECB00EE1140 /* MapView.swift in Sources */,
+				8BD4873523E04AE600EE1140 /* Email.swift in Sources */,
 				8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */,
 				8BD4871A23DF351B00EE1140 /* LoyaltyCardView.swift in Sources */,
 				8BD4872B23DF67DA00EE1140 /* WebView.swift in Sources */,
@@ -355,7 +363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.theappforest.River-Garden-Cafe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -376,7 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.theappforest.River-Garden-Cafe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

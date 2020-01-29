@@ -22,7 +22,6 @@ struct MapView: UIViewRepresentable {
         let region = MKCoordinateRegion(center: coordinate, span: span)
         view.setRegion(region, animated: true)
     }
-    
 }
 
 struct MapView_Previews: PreviewProvider {

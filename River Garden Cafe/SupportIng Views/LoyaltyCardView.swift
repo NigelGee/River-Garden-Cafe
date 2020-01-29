@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LoyaltyCardView: View {
-    @ObservedObject var reader: Reader
+    @ObservedObject var reader = Reader()
     
     var body: some View {
         NavigationView {
@@ -17,7 +17,8 @@ struct LoyaltyCardView: View {
                 Text("HAVE YOUR 8th HOT DRINK ON US!")
                     .font(.caption)
                     .padding(.top)
-               
+                    .accessibility(label: Text("have your eigth hot drink on us"))
+                
                 VStack{
                     ForEach(1..<5, id: \.self) { row in
                         VStack {
@@ -33,7 +34,6 @@ struct LoyaltyCardView: View {
                                                 .overlay(Capsule().stroke(Color.secondary, lineWidth: 2))
                                             if (col * 4) + row <= self.reader.adjustedStamp {
                                                 StampView()
-                                                    .accessibility(label: Text( "\(self.reader.adjustedStamp) Stamp\(self.reader.adjustedStamp < 2 ? "" : "s")"))
                                             }
                                             
                                             if (col * 4) + row == 8 {
@@ -43,7 +43,7 @@ struct LoyaltyCardView: View {
                                                         .fontWeight(.heavy)
                                                         .foregroundColor(.primary)
                                                 }
-                                                .accessibilityElement(children: .ignore)
+                                                
                                             }
                                         }
                                         Spacer()
@@ -54,7 +54,8 @@ struct LoyaltyCardView: View {
                         }
                     }
                 }
-               
+                .accessibilityElement(children: .ignore)
+                .accessibility(label: Text( "\(self.reader.adjustedStamp) Stamp\(self.reader.adjustedStamp < 2 ? "" : "s")"))
                 
                 Spacer()
                 
@@ -68,23 +69,21 @@ struct LoyaltyCardView: View {
                 Button("Add Stamp") {
                     self.reader.addStamp(reedeem: false)
                 }
-                .buttonStyle(colour: .green)
+                .buttonStyle(colour: .blue)
                 .padding(.bottom)
             }
             .navigationBarTitle("Loyaty Card", displayMode: .inline)
         }
         .alert(isPresented: $reader.showningWrongStamp) {
-            Alert(title: Text("Wrong Stamp"), message: Text("Please use correct stamp"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Wrong Stamp"), message: Text("Please try again!"), dismissButton: .default(Text("OK")))
         }
-// TODO:- Work out how to get the 2nd Error Alert here
-//        .alert(isPresented: $reader.showningNoReader) {
-//            Alert(title: Text("Scanning Not Supported"), message: Text("Please use another device that supports NFC"), dismissButton: .default(Text("OK")))
-//        }
+        //     TODO:- get 2nd Alert to show
+        //                Alert(title: Text("Scanning Not Supported"), message: Text("Please use another device that supports NFC"), dismissButton: .default(Text("OK")))
     }
 }
 
 struct LoyaltyCardView_Previews: PreviewProvider {
     static var previews: some View {
-        LoyaltyCardView(reader: Reader())
+        LoyaltyCardView()
     }
 }

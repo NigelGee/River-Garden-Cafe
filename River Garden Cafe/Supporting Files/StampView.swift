@@ -10,12 +10,12 @@ import SwiftUI
 
 struct StampView: View {
     var body: some View {
-       Image(decorative: "logo").resizable()
-       .frame(width: 65, height: 65)
-       .clipShape(Circle())
-       .shadow(radius: 10)
-       .shadow(radius: 10)
-       .shadow(radius: 10)
+        Image(decorative: "logo").resizable()
+            .frame(width: 65, height: 65)
+            .clipShape(Circle())
+            .shadow(radius: 10)
+            .shadow(radius: 10)
+            .shadow(radius: 10)
     }
 }
 
