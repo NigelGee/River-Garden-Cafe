@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B52EF0D23E1820000D5B904 /* EmailComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B52EF0C23E1820000D5B904 /* EmailComposerView.swift */; };
+		8B52EF0F23E1A76000D5B904 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B52EF0E23E1A76000D5B904 /* TermsView.swift */; };
+		8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */; };
 		8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870323DF342600EE1140 /* AppDelegate.swift */; };
 		8BD4870623DF342600EE1140 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870523DF342600EE1140 /* SceneDelegate.swift */; };
 		8BD4870823DF342600EE1140 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870723DF342600EE1140 /* ContentView.swift */; };
@@ -24,10 +27,12 @@
 		8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4872E23DF69E900EE1140 /* SettingsView.swift */; };
 		8BD4873123DF6A6A00EE1140 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873023DF6A6A00EE1140 /* OrderView.swift */; };
 		8BD4873323E00B1700EE1140 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873223E00B1700EE1140 /* Order.swift */; };
-		8BD4873523E04AE600EE1140 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4873423E04AE600EE1140 /* Email.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B52EF0C23E1820000D5B904 /* EmailComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposerView.swift; sourceTree = SOURCE_ROOT; };
+		8B52EF0E23E1A76000D5B904 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TermsView.swift; path = "River Garden Cafe/TermsView.swift"; sourceTree = SOURCE_ROOT; };
+		8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		8BD4870023DF342600EE1140 /* River Garden Cafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "River Garden Cafe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BD4870323DF342600EE1140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BD4870523DF342600EE1140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +53,6 @@
 		8BD4872E23DF69E900EE1140 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BD4873023DF6A6A00EE1140 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		8BD4873223E00B1700EE1140 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Order.swift; path = "River Garden Cafe/Order.swift"; sourceTree = SOURCE_ROOT; };
-		8BD4873423E04AE600EE1140 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Email.swift; path = "River Garden Cafe/Email.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +114,6 @@
 		8BD4871723DF349300EE1140 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8BD4873423E04AE600EE1140 /* Email.swift */,
 				8BD4873223E00B1700EE1140 /* Order.swift */,
 				8BD4871B23DF354B00EE1140 /* Reader.swift */,
 				8BD4871F23DF386B00EE1140 /* Modifiers.swift */,
@@ -121,10 +124,13 @@
 		8BD4871823DF34BD00EE1140 /* SupportIng Views */ = {
 			isa = PBXGroup;
 			children = (
+				8B52EF0C23E1820000D5B904 /* EmailComposerView.swift */,
 				8BD4871D23DF362E00EE1140 /* StampView.swift */,
 				8BD4872823DF605D00EE1140 /* InfoImageView.swift */,
 				8BD4872623DF5ECB00EE1140 /* MapView.swift */,
 				8BD4872A23DF67DA00EE1140 /* WebView.swift */,
+				8B52EF0E23E1A76000D5B904 /* TermsView.swift */,
+				8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */,
 			);
 			path = "SupportIng Views";
 			sourceTree = "<group>";
@@ -200,18 +206,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B52EF0F23E1A76000D5B904 /* TermsView.swift in Sources */,
 				8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */,
 				8BD4873123DF6A6A00EE1140 /* OrderView.swift in Sources */,
 				8BD4870623DF342600EE1140 /* SceneDelegate.swift in Sources */,
 				8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */,
 				8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */,
 				8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */,
+				8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */,
 				8BD4873323E00B1700EE1140 /* Order.swift in Sources */,
+				8B52EF0D23E1820000D5B904 /* EmailComposerView.swift in Sources */,
 				8BD4870823DF342600EE1140 /* ContentView.swift in Sources */,
 				8BD4872923DF605D00EE1140 /* InfoImageView.swift in Sources */,
 				8BD4872523DF5D4F00EE1140 /* InfomationView.swift in Sources */,
 				8BD4872723DF5ECB00EE1140 /* MapView.swift in Sources */,
-				8BD4873523E04AE600EE1140 /* Email.swift in Sources */,
 				8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */,
 				8BD4871A23DF351B00EE1140 /* LoyaltyCardView.swift in Sources */,
 				8BD4872B23DF67DA00EE1140 /* WebView.swift in Sources */,

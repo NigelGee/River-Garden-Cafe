@@ -15,7 +15,7 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
     
     @Published var numberOfStamps = UserDefaults.standard.integer(forKey: "NumberOfStamps")
     @Published var showningWrongStamp = false
-    @Published var showningNoReader = false
+    @Published var showningNoReader = NFCNDEFReaderSession.readingAvailable
     
     var adjustedStamp: Int {
         numberOfStamps % 7
@@ -23,10 +23,10 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
     
     private var isRedeemed = false
     
-    private let addStampTag = "\u{2}enaddStamp"
+    private let addStampTag = "\u{2}enaddStampRGC"
     private let redeemCoffeTag = "\u{2}enredeemDrinkRGC"
     
-    func addStamp(reedeem: Bool) {
+    func addStamp(redeem: Bool) {
         guard NFCNDEFReaderSession.readingAvailable else {
             showningNoReader = true
             print("Scanning Not Supported")
@@ -34,7 +34,7 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
         }
         
         session = NFCNDEFReaderSession(delegate: self, queue: DispatchQueue.main, invalidateAfterFirstRead: true)
-        if reedeem {
+        if redeem {
             isRedeemed = true
             session?.alertMessage = "Hold your iPhone near the Stamp to receive free coffee"
         } else {

@@ -14,12 +14,12 @@ struct ContentView: View {
             LoyaltyCardView(reader: Reader())
                 .tabItem {
                     Image(systemName: "circle.grid.3x3")
-                    Text("Loyaty")
+                    Text("Loyalty")
             }
             
             InfomationView()
                 .tabItem {
-                    Image(systemName: "questionmark.diamond")
+                    Image(systemName: "exclamationmark.circle")
                     Text("Info")
             }
             

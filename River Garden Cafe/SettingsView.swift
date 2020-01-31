@@ -11,8 +11,14 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Form {
+                NavigationLink(destination: TermsView()) {
+                    Text("Terms & Conditions")
+                }
+                
+                NavigationLink(destination: PrivacyView()) {
+                    Text("Privacy Policy")
+                }
             }
             .navigationBarTitle("Settings", displayMode: .inline)
         }

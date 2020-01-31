@@ -12,13 +12,13 @@ class Order: ObservableObject {
     
     static let drinks = ["Latte", "Flat White", "Americano","Cappacino","Mocha","Hot Chocalate", "Tea"]
     static let syrups = ["None", "Vanilla", "Caramal", "Hazelnut"]
-    static let milkTypes = ["Semi-Skimmed", "Skimmed", "Oatmeal"]
+    static let milkTypes = ["Semi-Skimmed", "Skimmed", "Oatmeal", "No Milk"]
     static let teas = ["Indian", "English Breakfast", "Earl Grey", "Green Tea"]
     
-    @Published var drink = 0
+    @Published var drink = UserDefaults.standard.integer(forKey: "Drink")
     @Published var quanity = 1
     
-    @Published var specailRequestEnabled = false {
+    @Published var specailRequestEnabled = UserDefaults.standard.bool(forKey: "SpecailRequest") {
         didSet {
             if specailRequestEnabled == false {
                 syrup = 0
@@ -28,10 +28,13 @@ class Order: ObservableObject {
             }
         }
     }
-    @Published var syrup = 0
-    @Published var milk = 0
-    @Published var chocolateSpinkles = false
-    @Published var tea = 0
+    @Published var syrup = UserDefaults.standard.integer(forKey: "Syrup")
+    @Published var milk = UserDefaults.standard.integer(forKey: "Milk")
+    @Published var chocolateSpinkles = UserDefaults.standard.bool(forKey: "Spinkles")
+    @Published var tea = UserDefaults.standard.integer(forKey: "Tea")
+    @Published var honey = UserDefaults.standard.bool(forKey: "Honey")
+    @Published var lemon = UserDefaults.standard.bool(forKey: "Lemon")
     
-    @Published var extraHot = false
+    @Published var extraHot = UserDefaults.standard.bool(forKey: "ExtraHot")
+    @Published var takeAway = false
 }

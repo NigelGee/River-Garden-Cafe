@@ -10,17 +10,18 @@ import SwiftUI
 
 struct LoyaltyCardView: View {
     @ObservedObject var reader = Reader()
+    let numberStamp = 8
     
     var body: some View {
         NavigationView {
             VStack {
-                Text("HAVE YOUR 8th HOT DRINK ON US!")
+                Text("HAVE YOUR \(numberStamp)th HOT DRINK ON US!")
                     .font(.caption)
                     .padding(.top)
-                    .accessibility(label: Text("have your eigth hot drink on us"))
+                    .accessibility(label: Text("have your \(numberStamp)th hot drink on us"))
                 
                 VStack{
-                    ForEach(1..<5, id: \.self) { row in
+                    ForEach(1..<(numberStamp / 2) + 1, id: \.self) { row in
                         VStack {
                             Spacer()
                             HStack {
@@ -32,16 +33,17 @@ struct LoyaltyCardView: View {
                                                 .foregroundColor(.clear)
                                                 .frame(width: 70, height: 70)
                                                 .overlay(Capsule().stroke(Color.secondary, lineWidth: 2))
-                                            if (col * 4) + row <= self.reader.adjustedStamp {
+                                            if (col * self.numberStamp / 2) + row <= self.reader.adjustedStamp {
                                                 StampView()
                                             }
                                             
-                                            if (col * 4) + row == 8 {
+                                            if (col * self.numberStamp / 2) + row == self.numberStamp {
                                                 ZStack {
                                                     StampView()
                                                     Text("FREE")
                                                         .fontWeight(.heavy)
-                                                        .foregroundColor(.primary)
+                                                        .font(.system(size: 18))
+                                                        .foregroundColor(.black)
                                                 }
                                                 
                                             }
@@ -61,18 +63,19 @@ struct LoyaltyCardView: View {
                 
                 if reader.numberOfStamps >= 7 {
                     Button("\(reader.numberOfStamps / 7) Free Coffee\(reader.numberOfStamps / 7 < 2 ? "" : "s")") {
-                        self.reader.addStamp(reedeem: true)
+                        self.reader.addStamp(redeem: true)
                     }
                     .buttonStyle(colour: .red)
                 }
                 
                 Button("Add Stamp") {
-                    self.reader.addStamp(reedeem: false)
+                    self.reader.addStamp(redeem: false)
                 }
                 .buttonStyle(colour: .blue)
                 .padding(.bottom)
+                
             }
-            .navigationBarTitle("Loyaty Card", displayMode: .inline)
+            .navigationBarTitle("Loyalty Card", displayMode: .inline)
         }
         .alert(isPresented: $reader.showningWrongStamp) {
                 Alert(title: Text("Wrong Stamp"), message: Text("Please try again!"), dismissButton: .default(Text("OK")))

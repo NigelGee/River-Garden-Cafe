@@ -11,9 +11,7 @@ import SwiftUI
 
 struct OrderView: View {
     @ObservedObject var order = Order()
-    @ObservedObject var email = EmailComposer()
-    
-    @State var showningEmail = false
+    let emailComposer = EmailComposerView()
     
     var body: some View {
         NavigationView {
@@ -32,23 +30,33 @@ struct OrderView: View {
                             Text("Special Requests")
                         }
                         
+                        if Order.drinks[order.drink].hasPrefix("Tea") {
+                            Picker("Type of Tea", selection: $order.tea) {
+                                ForEach(0..<Order.teas.count, id: \.self) {
+                                    Text(Order.teas[$0])
+                                }
+                            }
+                        }
+                                                
                         if order.specailRequestEnabled {
-                            if order.drink == 6 {
-                                Picker("Type of Tea", selection: $order.tea) {
-                                    ForEach(0..<Order.teas.count, id: \.self) {
-                                        Text(Order.teas[$0])
-                                    }
+                            Picker("Milk Types", selection: $order.milk) {
+                                ForEach(0..<Order.milkTypes.count, id: \.self) {
+                                    Text(Order.milkTypes[$0])
+                                }
+                            }
+                            
+                            if Order.drinks[order.drink].hasPrefix("Tea") {
+                                Toggle(isOn: $order.honey) {
+                                    Text("Honey")
+                                }
+                                
+                                Toggle(isOn: $order.lemon) {
+                                    Text("Lemon")
                                 }
                             } else {
                                 Picker("Syrup", selection: $order.syrup) {
                                     ForEach(0..<Order.syrups.count, id: \.self) {
                                         Text(Order.syrups[$0])
-                                    }
-                                }
-                                
-                                Picker("Milk Types", selection: $order.milk) {
-                                    ForEach(0..<Order.milkTypes.count, id: \.self) {
-                                        Text(Order.milkTypes[$0])
                                     }
                                 }
                                 
@@ -66,26 +74,50 @@ struct OrderView: View {
                     }
                     
                     Section {
+                        Text("Time")
+                    }
+                    
+                    Section {
                         
                         Stepper(value: $order.quanity, in: 1...10) {
                             Text("Number of drinks: \(order.quanity)")
                         }
                         
-                        Button("Confirm Order") {
-                            self.showningEmail = true
+                        Toggle(isOn: $order.takeAway) {
+                            Text("Take-a-way")
+                        }
+                        
+                        if MFMailComposeViewController.canSendMail() {
+                            Button("Confirm Order") {
+                                self.saveUserDefaults()
+                                self.emailComposer.sendEmail()
+                            }
+                        } else {
+                            Text("Device not congfigure to send Email for confirmation")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
                         }
                     }
                 }
                 Text("Note: check email order is correct and click send")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
             }
             .navigationBarTitle("Pre-order Your Hot Drinks", displayMode: .inline)
-            .sheet(isPresented: $showningEmail) {
-                Text("Sent")
-            }
-
         }
+    }
+    
+    func saveUserDefaults() {
+        let userDefault = UserDefaults.standard
+        userDefault.set(self.order.drink, forKey: "Drink")
+        userDefault.set(self.order.specailRequestEnabled, forKey: "SpecailRequest")
+        userDefault.set(self.order.syrup, forKey: "Syrup")
+        userDefault.set(self.order.milk, forKey: "Milk")
+        userDefault.set(self.order.tea, forKey: "Tea")
+        userDefault.set(self.order.honey, forKey: "Honey")
+        userDefault.set(self.order.lemon, forKey: "Lemon")
+        userDefault.set(self.order.chocolateSpinkles, forKey: "Spinkles")
+        userDefault.set(self.order.extraHot, forKey: "ExtraHot")
     }
 }
 

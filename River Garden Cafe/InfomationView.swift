@@ -35,7 +35,7 @@ struct InfomationView: View {
                         Text("Monday to Friday 7:30am - 7pm")
                         Text("Saturday and Sunday 8:30am - 7pm")
                         
-                        Text("Situated on the River Thames along from Greenwich Cutty Sark, with stunning views of London from the full length windows while serving a variety of hot and cold drink. From specialty coffee to wide range of tea (and wine and beer). Also can enjoy a wide range of cakes & pasties to main meals. (Vegan friendly). Children and dogs friendly (not to eat!)")
+                        Text("Situated on the River Thames along from Greenwich Cutty Sark, with stunning views of London from the full length windows while serving a variety of hot and cold drink. From specialty coffee to wide range of tea (and wine and beer). Also can enjoy a wide range of cakes & pastries to main meals. (Vegan friendly). Children and dogs friendly (not to eat!)")
                         .padding()
                             
                         
