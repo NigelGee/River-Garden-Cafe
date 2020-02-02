@@ -14,9 +14,11 @@ class Order: ObservableObject {
     static let syrups = ["None", "Vanilla", "Caramal", "Hazelnut"]
     static let milkTypes = ["Semi-Skimmed", "Skimmed", "Oatmeal", "No Milk"]
     static let teas = ["Indian", "English Breakfast", "Earl Grey", "Green Tea"]
+    static let quanityString = ["One", "Two", "Three", "Four", "Five"]
     
     @Published var drink = UserDefaults.standard.integer(forKey: "Drink")
     @Published var quanity = 1
+    @Published var time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
     
     @Published var specailRequestEnabled = UserDefaults.standard.bool(forKey: "SpecailRequest") {
         didSet {

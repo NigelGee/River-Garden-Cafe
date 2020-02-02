@@ -11,8 +11,9 @@ import SwiftUI
 
 struct OrderView: View {
     @ObservedObject var order = Order()
-    let emailComposer = EmailComposerView()
-    
+    @State var result: Result<MFMailComposeResult, Error>? = nil
+    @State var isShowingMailView = false
+        
     var body: some View {
         NavigationView {
             VStack {
@@ -74,23 +75,26 @@ struct OrderView: View {
                     }
                     
                     Section {
-                        Text("Time")
+                        DatePicker("Time", selection: $order.time, in: minTime...maxTime ,displayedComponents: .hourAndMinute)
                     }
                     
                     Section {
                         
-                        Stepper(value: $order.quanity, in: 1...10) {
+                        Stepper(value: $order.quanity, in: 1...5) {
                             Text("Number of drinks: \(order.quanity)")
                         }
                         
                         Toggle(isOn: $order.takeAway) {
-                            Text("Take-a-way")
+                            Text("Take-A-Way")
                         }
                         
                         if MFMailComposeViewController.canSendMail() {
                             Button("Confirm Order") {
                                 self.saveUserDefaults()
-                                self.emailComposer.sendEmail()
+                                self.isShowingMailView = true
+                            }
+                            .sheet(isPresented: $isShowingMailView) {
+                                MailView(result: self.$result)
                             }
                         } else {
                             Text("Device not congfigure to send Email for confirmation")
@@ -105,6 +109,7 @@ struct OrderView: View {
             }
             .navigationBarTitle("Pre-order Your Hot Drinks", displayMode: .inline)
         }
+        
     }
     
     func saveUserDefaults() {
@@ -118,6 +123,16 @@ struct OrderView: View {
         userDefault.set(self.order.lemon, forKey: "Lemon")
         userDefault.set(self.order.chocolateSpinkles, forKey: "Spinkles")
         userDefault.set(self.order.extraHot, forKey: "ExtraHot")
+    }
+    
+    var minTime: Date {
+        let time = Calendar.current.date(byAdding: .minute, value: 10, to: Date())
+        return time ?? Date()
+    }
+    
+    var maxTime: Date {
+        let time = Calendar.current.date(byAdding: .hour, value: 3, to: Date())
+        return time ?? Date()
     }
 }
 

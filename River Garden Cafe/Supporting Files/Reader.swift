@@ -23,8 +23,8 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
     
     private var isRedeemed = false
     
-    private let addStampTag = "\u{2}enaddStampRGC"
-    private let redeemCoffeTag = "\u{2}enredeemDrinkRGC"
+    private let addStampTag = "addStampRGC"
+    private let redeemCoffeTag = "redeemDrinkRGC"
     
     func addStamp(redeem: Bool) {
         guard NFCNDEFReaderSession.readingAvailable else {
