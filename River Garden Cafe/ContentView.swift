@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var order: Order
     var body: some View {
         TabView {
-            LoyaltyCardView(reader: Reader())
+            LoyaltyCardView()
                 .tabItem {
                     Image(systemName: "circle.grid.3x3")
                     Text("Loyalty")

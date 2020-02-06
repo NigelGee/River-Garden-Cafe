@@ -6,28 +6,55 @@
 //  Copyright © 2020 Nigel Gee. All rights reserved.
 //
 
+import UserNotifications
 import MessageUI
 import SwiftUI
 
 struct OrderView: View {
     @ObservedObject var order = Order()
-    @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State var isShowingMailView = false
+    @State private var result: Result<MFMailComposeResult, Error>? = nil
+    @State private var isShowingMailView = false
+    @State private var isDisable = false
+    
+    var minTime: Date {
+        let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
+        let hour = (timeComponents.hour ?? 8)
+        let minute = (timeComponents.minute ?? 0) + 10
         
+        var components = DateComponents()
+        components.hour = hour
+        components.minute = minute
+        return Calendar.current.date(from: components) ?? Date()
+    }
+    
+    var maxTime: Date {
+        var components = DateComponents()
+        components.hour = 19
+        components.minute = 30
+        return Calendar.current.date(from: components) ?? Date()
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section {
+                        Picker("Size of drink", selection: $order.size) {
+                            ForEach(0..<Order.sizes.count, id: \.self) {
+                                Text(Order.sizes[$0])
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        
                         Picker("Select your Hot Drink", selection: $order.drink) {
                             ForEach(0..<Order.drinks.count, id: \.self) {
                                 Text(Order.drinks[$0])
                             }
                         }
                     }
-                    
+                
                     Section {
-                        Toggle(isOn: $order.specailRequestEnabled.animation()) {
+                        Toggle(isOn: $order.specialRequestEnabled.animation()) {
                             Text("Special Requests")
                         }
                         
@@ -38,8 +65,8 @@ struct OrderView: View {
                                 }
                             }
                         }
-                                                
-                        if order.specailRequestEnabled {
+                        
+                        if order.specialRequestEnabled {
                             Picker("Milk Types", selection: $order.milk) {
                                 ForEach(0..<Order.milkTypes.count, id: \.self) {
                                     Text(Order.milkTypes[$0])
@@ -47,13 +74,12 @@ struct OrderView: View {
                             }
                             
                             if Order.drinks[order.drink].hasPrefix("Tea") {
-                                Toggle(isOn: $order.honey) {
-                                    Text("Honey")
+                                Picker("Condiments", selection: $order.teaCondiment) {
+                                    ForEach(0..<Order.teaCondiments.count, id: \.self) {
+                                        Text(Order.teaCondiments[$0])
+                                    }
                                 }
-                                
-                                Toggle(isOn: $order.lemon) {
-                                    Text("Lemon")
-                                }
+                                .pickerStyle(SegmentedPickerStyle())
                             } else {
                                 Picker("Syrup", selection: $order.syrup) {
                                     ForEach(0..<Order.syrups.count, id: \.self) {
@@ -61,21 +87,32 @@ struct OrderView: View {
                                     }
                                 }
                                 
-                                Toggle(isOn: $order.chocolateSpinkles) {
-                                    Text("Chocolate Spinkles")
+                                Picker("Spinkles", selection: $order.spinkle) {
+                                    ForEach(0..<Order.spinkles.count, id: \.self) {
+                                        Text(Order.spinkles[$0])
+                                    }
                                 }
+                                .pickerStyle(SegmentedPickerStyle())
                             }
                         }
-                    }
-                    
-                    Section {
+                        
+                        Stepper(value: $order.sugar, in: 0...6) {
+                            Text("\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")")
+                        }
+                        
                         Toggle(isOn: $order.extraHot) {
                             Text("Extra Hot")
                         }
                     }
                     
                     Section {
-                        DatePicker("Time", selection: $order.time, in: minTime...maxTime ,displayedComponents: .hourAndMinute)
+                        if minTime >= maxTime {
+                            Text("Pre-order unavailable, Please try tommorrow")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                        } else {
+                            DatePicker("Time", selection: $order.time, in: minTime...maxTime ,displayedComponents: .hourAndMinute)
+                        }
                     }
                     
                     Section {
@@ -84,6 +121,7 @@ struct OrderView: View {
                             Text("Number of drinks: \(order.quanity)")
                         }
                         
+                        
                         Toggle(isOn: $order.takeAway) {
                             Text("Take-A-Way")
                         }
@@ -91,10 +129,12 @@ struct OrderView: View {
                         if MFMailComposeViewController.canSendMail() {
                             Button("Confirm Order") {
                                 self.saveUserDefaults()
+                                self.addNotification(for: self.order)
                                 self.isShowingMailView = true
                             }
+                            .disabled(isDisable)
                             .sheet(isPresented: $isShowingMailView) {
-                                MailView(result: self.$result)
+                                MailView(result: self.$result).environmentObject(self.order)
                             }
                         } else {
                             Text("Device not congfigure to send Email for confirmation")
@@ -107,37 +147,78 @@ struct OrderView: View {
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
             }
+        
             .navigationBarTitle("Pre-order Your Hot Drinks", displayMode: .inline)
         }
+        .onAppear(perform: setIsDisable)
         
     }
     
     func saveUserDefaults() {
         let userDefault = UserDefaults.standard
+        userDefault.set(self.order.size, forKey: "Size")
         userDefault.set(self.order.drink, forKey: "Drink")
-        userDefault.set(self.order.specailRequestEnabled, forKey: "SpecailRequest")
+        userDefault.set(self.order.specialRequestEnabled, forKey: "SpecialRequest")
         userDefault.set(self.order.syrup, forKey: "Syrup")
+        userDefault.set(self.order.spinkle, forKey: "Spinkle")
         userDefault.set(self.order.milk, forKey: "Milk")
         userDefault.set(self.order.tea, forKey: "Tea")
-        userDefault.set(self.order.honey, forKey: "Honey")
-        userDefault.set(self.order.lemon, forKey: "Lemon")
-        userDefault.set(self.order.chocolateSpinkles, forKey: "Spinkles")
+        userDefault.set(self.order.teaCondiment, forKey: "Condiment")
         userDefault.set(self.order.extraHot, forKey: "ExtraHot")
+        userDefault.set(self.order.sugar, forKey: "Sugar")
     }
     
-    var minTime: Date {
-        let time = Calendar.current.date(byAdding: .minute, value: 10, to: Date())
-        return time ?? Date()
+    func setIsDisable() {
+        if minTime < maxTime {
+            isDisable = false
+        } else {
+            isDisable = true
+        }
     }
     
-    var maxTime: Date {
-        let time = Calendar.current.date(byAdding: .hour, value: 3, to: Date())
-        return time ?? Date()
+    func addNotification(for order: Order) {
+        let center = UNUserNotificationCenter.current()
+        
+        let addRequest = {
+            let content = UNMutableNotificationContent()
+            content.title = "Your \(Order.drinks[order.drink]) is nearly ready"
+            content.subtitle = "Please collect it in 5 mins"
+            
+            let time = Calendar.current.date(byAdding: .minute, value: -5, to: order.time)
+            let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: time ?? Date())
+            let hour = (timeComponents.hour ?? 9)
+            let minute = (timeComponents.minute ?? 0)
+            
+            var notificationComponets = DateComponents()
+            notificationComponets.hour = hour
+            notificationComponets.minute = minute
+            
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notificationComponets, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            center.add(request)
+        }
+        
+        center.getNotificationSettings { setting in
+            if setting.authorizationStatus == .authorized {
+                addRequest()
+            } else {
+                center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        addRequest()
+                    } else {
+                        print("No Alerts")
+                    }
+                }
+            }
+        }
+        
     }
 }
 
 struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderView()
+        OrderView().environmentObject(Order())
     }
 }

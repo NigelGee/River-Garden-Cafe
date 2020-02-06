@@ -12,31 +12,35 @@ class Order: ObservableObject {
     
     static let drinks = ["Latte", "Flat White", "Americano","Cappacino","Mocha","Hot Chocalate", "Tea"]
     static let syrups = ["None", "Vanilla", "Caramal", "Hazelnut"]
-    static let milkTypes = ["Semi-Skimmed", "Skimmed", "Oatmeal", "No Milk"]
-    static let teas = ["Indian", "English Breakfast", "Earl Grey", "Green Tea"]
+    static let milkTypes = ["Semi-Skimmed", "Skimmed", "Oatmeal", "None"]
+    static let teas = ["English", "Earl Grey", "Green"]
+    static let sizes = ["Regular", "Medium", "Large"]
+    static let spinkles = ["None", "Chocolate", "Cinnamon"]
+    static let teaCondiments = ["None","Honey", "Lemon"]
     static let quanityString = ["One", "Two", "Three", "Four", "Five"]
     
     @Published var drink = UserDefaults.standard.integer(forKey: "Drink")
     @Published var quanity = 1
     @Published var time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
     
-    @Published var specailRequestEnabled = UserDefaults.standard.bool(forKey: "SpecailRequest") {
+    @Published var specialRequestEnabled = UserDefaults.standard.bool(forKey: "SpecialRequest") {
         didSet {
-            if specailRequestEnabled == false {
+            if specialRequestEnabled == false {
                 syrup = 0
                 milk = 0
-                chocolateSpinkles = false
+                spinkle = 0
                 tea = 0
+                sugar = 0
             }
         }
     }
+    @Published var size = UserDefaults.standard.integer(forKey: "Size")
     @Published var syrup = UserDefaults.standard.integer(forKey: "Syrup")
     @Published var milk = UserDefaults.standard.integer(forKey: "Milk")
-    @Published var chocolateSpinkles = UserDefaults.standard.bool(forKey: "Spinkles")
+    @Published var spinkle = UserDefaults.standard.integer(forKey: "Spinkle")
     @Published var tea = UserDefaults.standard.integer(forKey: "Tea")
-    @Published var honey = UserDefaults.standard.bool(forKey: "Honey")
-    @Published var lemon = UserDefaults.standard.bool(forKey: "Lemon")
-    
+    @Published var teaCondiment = UserDefaults.standard.integer(forKey: "Condiment")
     @Published var extraHot = UserDefaults.standard.bool(forKey: "ExtraHot")
+    @Published var sugar = UserDefaults.standard.integer(forKey: "Sugar")
     @Published var takeAway = false
 }

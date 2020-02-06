@@ -10,7 +10,7 @@ import SwiftUI
 
 struct InfoImageView: View {
     var body: some View {
-        Image(decorative: "logo").resizable() // This to be taken from iCloud dB
+        Image(decorative: "logo").resizable()
             .frame(width: 250, height: 150)
             .clipShape(Capsule())
             .overlay(Capsule().stroke(Color.white, lineWidth: 4))
