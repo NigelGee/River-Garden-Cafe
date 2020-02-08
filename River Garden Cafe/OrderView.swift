@@ -29,7 +29,7 @@ struct OrderView: View {
     
     var maxTime: Date {
         var components = DateComponents()
-        components.hour = 19
+        components.hour = 18
         components.minute = 30
         return Calendar.current.date(from: components) ?? Date()
     }
@@ -52,7 +52,7 @@ struct OrderView: View {
                             }
                         }
                     }
-                
+                    
                     Section {
                         Toggle(isOn: $order.specialRequestEnabled.animation()) {
                             Text("Special Requests")
@@ -106,7 +106,7 @@ struct OrderView: View {
                     }
                     
                     Section {
-                        if minTime >= maxTime {
+                        if maxTime < minTime {
                             Text("Pre-order unavailable, Please try tommorrow")
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
@@ -147,11 +147,10 @@ struct OrderView: View {
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
             }
-        
+                
             .navigationBarTitle("Pre-order Your Hot Drinks", displayMode: .inline)
         }
-        .onAppear(perform: setIsDisable)
-        
+        .onAppear(perform: setOnAppear)
     }
     
     func saveUserDefaults() {
@@ -168,7 +167,9 @@ struct OrderView: View {
         userDefault.set(self.order.sugar, forKey: "Sugar")
     }
     
-    func setIsDisable() {
+    func setOnAppear() {
+        order.time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
+        
         if minTime < maxTime {
             isDisable = false
         } else {
@@ -182,7 +183,8 @@ struct OrderView: View {
         let addRequest = {
             let content = UNMutableNotificationContent()
             content.title = "Your \(Order.drinks[order.drink]) is nearly ready"
-            content.subtitle = "Please collect it in 5 mins"
+            content.body = "Please collect it in 5 mins"
+            content.sound = UNNotificationSound.default
             
             let time = Calendar.current.date(byAdding: .minute, value: -5, to: order.time)
             let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: time ?? Date())

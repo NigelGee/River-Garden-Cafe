@@ -11,7 +11,7 @@ import UIKit
 import MessageUI
 
 struct MailView: UIViewControllerRepresentable {
-
+    
     @EnvironmentObject var order: Order
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
@@ -61,15 +61,15 @@ struct MailView: UIViewControllerRepresentable {
     }
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-
+        
         @Binding var presentation: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
-
+        
         init(presentation: Binding<PresentationMode>, result: Binding<Result<MFMailComposeResult, Error>?>) {
             _presentation = presentation
             _result = result
         }
-
+        
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
             defer {
                 $presentation.wrappedValue.dismiss()
@@ -81,23 +81,23 @@ struct MailView: UIViewControllerRepresentable {
             self.result = .success(result)
         }
     }
-
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(presentation: presentation, result: $result)
     }
-
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
         let mailVC = MFMailComposeViewController()
-                
-        mailVC.setToRecipients(["nigel.gee@icloud.com"])
+        
+        mailVC.setToRecipients(["fabio12105@gmail.com"])
         mailVC.setSubject(mailSubject)
         mailVC.setMessageBody(mailBody, isHTML: false)
         mailVC.mailComposeDelegate = context.coordinator
         
         return mailVC
     }
-
+    
     func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: UIViewControllerRepresentableContext<MailView>) {
-
+        
     }
 }

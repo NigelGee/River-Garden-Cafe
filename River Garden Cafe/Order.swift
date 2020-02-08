@@ -43,4 +43,5 @@ class Order: ObservableObject {
     @Published var extraHot = UserDefaults.standard.bool(forKey: "ExtraHot")
     @Published var sugar = UserDefaults.standard.integer(forKey: "Sugar")
     @Published var takeAway = false
+    
 }

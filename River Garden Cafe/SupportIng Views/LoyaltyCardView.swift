@@ -78,7 +78,7 @@ struct LoyaltyCardView: View {
             .navigationBarTitle("Loyalty Card", displayMode: .inline)
         }
         .alert(isPresented: $reader.showningWrongStamp) {
-                Alert(title: Text("Wrong Stamp"), message: Text("Please try again!"), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Wrong Stamp"), message: Text("Please try again!"), dismissButton: .default(Text("OK")))
         }
         //     TODO:- get 2nd Alert to show
         //                Alert(title: Text("Scanning Not Supported"), message: Text("Please use another device that supports NFC"), dismissButton: .default(Text("OK")))

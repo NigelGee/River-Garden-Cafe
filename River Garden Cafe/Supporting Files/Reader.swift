@@ -10,7 +10,7 @@ import CoreNFC
 import UIKit
 
 class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
-
+    
     var session: NFCNDEFReaderSession?
     
     @Published var numberOfStamps = UserDefaults.standard.integer(forKey: "NumberOfStamps")
