@@ -12,6 +12,7 @@ import SwiftUI
 
 struct OrderView: View {
     @ObservedObject var order = Order()
+    @ObservedObject var tray = Tray()
     @State private var result: Result<MFMailComposeResult, Error>? = nil
     @State private var isShowingMailView = false
     @State private var isDisable = false
@@ -130,6 +131,8 @@ struct OrderView: View {
                             Button("Confirm Order") {
                                 self.saveUserDefaults()
                                 self.addNotification(for: self.order)
+                                self.tray.orderedDrinks.append(self.order)
+                                print(Order.drinks[self.tray.orderedDrinks[0].drink])
                                 self.isShowingMailView = true
                             }
                             .disabled(isDisable)
@@ -149,6 +152,7 @@ struct OrderView: View {
             }
                 
             .navigationBarTitle("Pre-order Your Hot Drinks", displayMode: .inline)
+            .navigationBarItems(trailing: Image(systemName: "tray"))
         }
         .onAppear(perform: setOnAppear)
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B12B37E23EF3A5F0034D7D1 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B12B37D23EF3A5F0034D7D1 /* Tray.swift */; };
 		8B52EF0F23E1A76000D5B904 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B52EF0E23E1A76000D5B904 /* TermsView.swift */; };
 		8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */; };
 		8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870323DF342600EE1140 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B12B37D23EF3A5F0034D7D1 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
 		8B52EF0E23E1A76000D5B904 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TermsView.swift; path = "River Garden Cafe/TermsView.swift"; sourceTree = SOURCE_ROOT; };
 		8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		8BD4870023DF342600EE1140 /* River Garden Cafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "River Garden Cafe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				8BD4873223E00B1700EE1140 /* Order.swift */,
 				8BD4871B23DF354B00EE1140 /* Reader.swift */,
 				8BD4871F23DF386B00EE1140 /* Modifiers.swift */,
+				8B12B37D23EF3A5F0034D7D1 /* Tray.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				8B52EF0F23E1A76000D5B904 /* TermsView.swift in Sources */,
 				8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */,
 				8BD4873123DF6A6A00EE1140 /* OrderView.swift in Sources */,
+				8B12B37E23EF3A5F0034D7D1 /* Tray.swift in Sources */,
 				8BD4870623DF342600EE1140 /* SceneDelegate.swift in Sources */,
 				8BD4872023DF386B00EE1140 /* Modifiers.swift in Sources */,
 				8BD4871E23DF362E00EE1140 /* StampView.swift in Sources */,
