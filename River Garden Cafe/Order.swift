@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Order: ObservableObject {
+class Order: ObservableObject, Identifiable {
     
     static let drinks = ["Latte", "Flat White", "Americano","Cappacino","Mocha","Hot Chocalate", "Tea"]
     static let syrups = ["None", "Vanilla", "Caramal", "Hazelnut"]
@@ -18,6 +18,8 @@ class Order: ObservableObject {
     static let spinkles = ["None", "Chocolate", "Cinnamon"]
     static let teaCondiments = ["None","Honey", "Lemon"]
     static let quanityString = ["One", "Two", "Three", "Four", "Five"]
+    
+    @Published var id = UUID()
     
     @Published var drink = UserDefaults.standard.integer(forKey: "Drink")
     @Published var quanity = 1

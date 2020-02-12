@@ -127,23 +127,33 @@ struct OrderView: View {
                             Text("Take-A-Way")
                         }
                         
-                        if MFMailComposeViewController.canSendMail() {
-                            Button("Confirm Order") {
-                                self.saveUserDefaults()
-                                self.addNotification(for: self.order)
-                                self.tray.orderedDrinks.append(self.order)
-                                print(Order.drinks[self.tray.orderedDrinks[0].drink])
-                                self.isShowingMailView = true
+                        Button(action: {
+                            
+                            self.tray.orderedDrinks.append(self.order)
+                            for orderedDrink in self.tray.orderedDrinks {
+                                print(Order.drinks[orderedDrink.drink])
                             }
-                            .disabled(isDisable)
-                            .sheet(isPresented: $isShowingMailView) {
-                                MailView(result: self.$result).environmentObject(self.order)
-                            }
-                        } else {
-                            Text("Device not congfigure to send Email for confirmation")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
+                            
+                        }) {
+                            Text("Add to Tray")
                         }
+                        
+//                        if MFMailComposeViewController.canSendMail() {
+//                            Button(action: {
+//                                self.addNotification(for: self.order)
+//                                self.isShowingMailView = true
+//                            }) {
+//                                    Text("Confirm Order")
+//                            }
+//                            .disabled(isDisable)
+//                            .sheet(isPresented: $isShowingMailView) {
+//                                MailView(result: self.$result).environmentObject(self.order)
+//                            }
+//                        } else {
+//                            Text("Device not congfigure to send Email for confirmation")
+//                                .font(.footnote)
+//                                .foregroundColor(.secondary)
+//                        }
                     }
                 }
                 Text("Note: check email order is correct and click send")
@@ -151,8 +161,23 @@ struct OrderView: View {
                     .foregroundColor(.secondary)
             }
                 
-            .navigationBarTitle("Pre-order Your Hot Drinks", displayMode: .inline)
-            .navigationBarItems(trailing: Image(systemName: "tray"))
+            .navigationBarTitle("Pre-order", displayMode: .inline)
+            .navigationBarItems(trailing:
+                NavigationLink(destination: CheckOutView().environmentObject(tray)) {
+                    VStack {
+                        if tray.orderedDrinks.isEmpty {
+                            Image(systemName: "tray")
+                                .foregroundColor(.secondary)
+                        } else {
+                            Image(systemName: "tray.and.arrow.down.fill")
+                                .foregroundColor(.red)
+                        }
+                        Text("Tray")
+                            .font(.caption)
+                            .foregroundColor(tray.orderedDrinks.isEmpty ? .secondary : .red)
+                    }
+                }
+            )
         }
         .onAppear(perform: setOnAppear)
     }
