@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		8B12B37E23EF3A5F0034D7D1 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B12B37D23EF3A5F0034D7D1 /* Tray.swift */; };
 		8B52EF0F23E1A76000D5B904 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B52EF0E23E1A76000D5B904 /* TermsView.swift */; };
+		8B5CF8E723F8107B008B1B64 /* ConfrimOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5CF8E623F8107B008B1B64 /* ConfrimOrderView.swift */; };
 		8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */; };
 		8B8EC25C23F0709B00B038FF /* CheckOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8EC25B23F0709B00B038FF /* CheckOutView.swift */; };
+		8B8EC27E23F5D64B00B038FF /* AddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8EC27D23F5D64B00B038FF /* AddedView.swift */; };
 		8BD4870423DF342600EE1140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870323DF342600EE1140 /* AppDelegate.swift */; };
 		8BD4870623DF342600EE1140 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870523DF342600EE1140 /* SceneDelegate.swift */; };
 		8BD4870823DF342600EE1140 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4870723DF342600EE1140 /* ContentView.swift */; };
@@ -34,8 +36,10 @@
 /* Begin PBXFileReference section */
 		8B12B37D23EF3A5F0034D7D1 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
 		8B52EF0E23E1A76000D5B904 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TermsView.swift; path = "River Garden Cafe/TermsView.swift"; sourceTree = SOURCE_ROOT; };
+		8B5CF8E623F8107B008B1B64 /* ConfrimOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfrimOrderView.swift; sourceTree = "<group>"; };
 		8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		8B8EC25B23F0709B00B038FF /* CheckOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutView.swift; sourceTree = "<group>"; };
+		8B8EC27D23F5D64B00B038FF /* AddedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedView.swift; sourceTree = "<group>"; };
 		8BD4870023DF342600EE1140 /* River Garden Cafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "River Garden Cafe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BD4870323DF342600EE1140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BD4870523DF342600EE1140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				8BD4871B23DF354B00EE1140 /* Reader.swift */,
 				8BD4871F23DF386B00EE1140 /* Modifiers.swift */,
 				8B12B37D23EF3A5F0034D7D1 /* Tray.swift */,
+				8B8EC27D23F5D64B00B038FF /* AddedView.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 				8BD4872A23DF67DA00EE1140 /* WebView.swift */,
 				8B52EF0E23E1A76000D5B904 /* TermsView.swift */,
 				8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */,
+				8B5CF8E623F8107B008B1B64 /* ConfrimOrderView.swift */,
 			);
 			path = "SupportIng Views";
 			sourceTree = "<group>";
@@ -223,10 +229,12 @@
 				8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */,
 				8BE62F3D23E726CC00F6C69D /* MailView.swift in Sources */,
 				8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */,
+				8B5CF8E723F8107B008B1B64 /* ConfrimOrderView.swift in Sources */,
 				8BD4873323E00B1700EE1140 /* Order.swift in Sources */,
 				8BD4870823DF342600EE1140 /* ContentView.swift in Sources */,
 				8BD4872923DF605D00EE1140 /* InfoImageView.swift in Sources */,
 				8BD4872523DF5D4F00EE1140 /* InfomationView.swift in Sources */,
+				8B8EC27E23F5D64B00B038FF /* AddedView.swift in Sources */,
 				8BD4872723DF5ECB00EE1140 /* MapView.swift in Sources */,
 				8BD4872F23DF69E900EE1140 /* SettingsView.swift in Sources */,
 				8BD4871A23DF351B00EE1140 /* LoyaltyCardView.swift in Sources */,

@@ -9,5 +9,26 @@
 import Foundation
 
 class Tray: ObservableObject {
-    @Published var orderedDrinks = [Order]()
+    @Published var orderedDrinks = [OrderTray]()
+}
+
+struct OrderTray: Identifiable {
+    var id = UUID()
+    let drink: String
+   
+    let isTea: Bool
+    let specialRequest: Bool
+
+    let noTeaCondiment: Bool
+    let teaCondiment: String
+    
+    let noSyrup: Bool
+    let syrup: String
+    let noSprinkles: Bool
+    let sprinkles: String
+    
+    
+    let milk: String
+    let extraHot: Bool
+    let sugar: String
 }

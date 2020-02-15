@@ -6,180 +6,174 @@
 //  Copyright © 2020 Nigel Gee. All rights reserved.
 //
 
-import UserNotifications
-import MessageUI
 import SwiftUI
 
 struct OrderView: View {
     @ObservedObject var order = Order()
     @ObservedObject var tray = Tray()
-    @State private var result: Result<MFMailComposeResult, Error>? = nil
-    @State private var isShowingMailView = false
-    @State private var isDisable = false
-    
-    var minTime: Date {
-        let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
-        let hour = (timeComponents.hour ?? 8)
-        let minute = (timeComponents.minute ?? 0) + 10
         
-        var components = DateComponents()
-        components.hour = hour
-        components.minute = minute
-        return Calendar.current.date(from: components) ?? Date()
-    }
-    
-    var maxTime: Date {
-        var components = DateComponents()
-        components.hour = 18
-        components.minute = 30
-        return Calendar.current.date(from: components) ?? Date()
-    }
-    
+    @State private var showningAddedView = false
+    @State private var showningConfirm = false
+        
     var body: some View {
-        NavigationView {
-            VStack {
-                Form {
-                    Section {
-                        Picker("Size of drink", selection: $order.size) {
-                            ForEach(0..<Order.sizes.count, id: \.self) {
-                                Text(Order.sizes[$0])
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
+        ZStack {
+            NavigationView {
+                VStack {
+                    Form {
                         
-                        Picker("Select your Hot Drink", selection: $order.drink) {
-                            ForEach(0..<Order.drinks.count, id: \.self) {
-                                Text(Order.drinks[$0])
-                            }
-                        }
+                        drinkTypeSection
+                        specialRequestSection
+                        takeOrderSection
+                        
                     }
-                    
-                    Section {
-                        Toggle(isOn: $order.specialRequestEnabled.animation()) {
-                            Text("Special Requests")
-                        }
-                        
-                        if Order.drinks[order.drink].hasPrefix("Tea") {
-                            Picker("Type of Tea", selection: $order.tea) {
-                                ForEach(0..<Order.teas.count, id: \.self) {
-                                    Text(Order.teas[$0])
-                                }
-                            }
-                        }
-                        
-                        if order.specialRequestEnabled {
-                            Picker("Milk Types", selection: $order.milk) {
-                                ForEach(0..<Order.milkTypes.count, id: \.self) {
-                                    Text(Order.milkTypes[$0])
-                                }
-                            }
-                            
-                            if Order.drinks[order.drink].hasPrefix("Tea") {
-                                Picker("Condiments", selection: $order.teaCondiment) {
-                                    ForEach(0..<Order.teaCondiments.count, id: \.self) {
-                                        Text(Order.teaCondiments[$0])
-                                    }
-                                }
-                                .pickerStyle(SegmentedPickerStyle())
+                    Text("Note: check email order is correct and click send")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                }
+                .navigationBarTitle("Pre-order", displayMode: .inline)
+                .navigationBarItems(trailing:
+                    NavigationLink(destination: CheckOutView().environmentObject(tray)) {
+                        VStack {
+                            if tray.orderedDrinks.isEmpty {
+                                Image(systemName: "tray")
+                                    .foregroundColor(.secondary)
                             } else {
-                                Picker("Syrup", selection: $order.syrup) {
-                                    ForEach(0..<Order.syrups.count, id: \.self) {
-                                        Text(Order.syrups[$0])
-                                    }
-                                }
-                                
-                                Picker("Spinkles", selection: $order.spinkle) {
-                                    ForEach(0..<Order.spinkles.count, id: \.self) {
-                                        Text(Order.spinkles[$0])
-                                    }
-                                }
-                                .pickerStyle(SegmentedPickerStyle())
+                                Image(systemName: "tray.and.arrow.down.fill")
                             }
-                        }
-                        
-                        Stepper(value: $order.sugar, in: 0...6) {
-                            Text("\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")")
-                        }
-                        
-                        Toggle(isOn: $order.extraHot) {
-                            Text("Extra Hot")
+                            Text("Tray")
+                                .font(.caption)
+                                .foregroundColor(tray.orderedDrinks.isEmpty ? .secondary : .blue)
                         }
                     }
-                    
-                    Section {
-                        if maxTime < minTime {
-                            Text("Pre-order unavailable, Please try tommorrow")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                        } else {
-                            DatePicker("Time", selection: $order.time, in: minTime...maxTime ,displayedComponents: .hourAndMinute)
-                        }
-                    }
-                    
-                    Section {
-                        
-                        Stepper(value: $order.quanity, in: 1...5) {
-                            Text("Number of drinks: \(order.quanity)")
-                        }
-                        
-                        
-                        Toggle(isOn: $order.takeAway) {
-                            Text("Take-A-Way")
-                        }
-                        
-                        Button(action: {
-                            
-                            self.tray.orderedDrinks.append(self.order)
-                            for orderedDrink in self.tray.orderedDrinks {
-                                print(Order.drinks[orderedDrink.drink])
-                            }
-                            
-                        }) {
-                            Text("Add to Tray")
-                        }
-                        
-//                        if MFMailComposeViewController.canSendMail() {
-//                            Button(action: {
-//                                self.addNotification(for: self.order)
-//                                self.isShowingMailView = true
-//                            }) {
-//                                    Text("Confirm Order")
-//                            }
-//                            .disabled(isDisable)
-//                            .sheet(isPresented: $isShowingMailView) {
-//                                MailView(result: self.$result).environmentObject(self.order)
-//                            }
-//                        } else {
-//                            Text("Device not congfigure to send Email for confirmation")
-//                                .font(.footnote)
-//                                .foregroundColor(.secondary)
-//                        }
-                    }
-                }
-                Text("Note: check email order is correct and click send")
-                    .font(.system(size: 12))
-                    .foregroundColor(.secondary)
+                )
             }
-                
-            .navigationBarTitle("Pre-order", displayMode: .inline)
-            .navigationBarItems(trailing:
-                NavigationLink(destination: CheckOutView().environmentObject(tray)) {
-                    VStack {
-                        if tray.orderedDrinks.isEmpty {
-                            Image(systemName: "tray")
-                                .foregroundColor(.secondary)
-                        } else {
-                            Image(systemName: "tray.and.arrow.down.fill")
-                                .foregroundColor(.red)
+            
+            if showningAddedView {
+                AddedView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                            self.showningAddedView = false
                         }
-                        Text("Tray")
-                            .font(.caption)
-                            .foregroundColor(tray.orderedDrinks.isEmpty ? .secondary : .red)
+                }
+            }
+        }
+        .sheet(isPresented: $showningConfirm) {
+            ConfrimOrderView()
+        }
+    }
+    
+    private var drinkTypeSection: some View {
+        Section {
+            Picker("Size of drink", selection: $order.size) {
+                ForEach(0..<Order.sizes.count, id: \.self) {
+                    Text(Order.sizes[$0])
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            
+            Picker("Select your Hot Drink", selection: $order.drink) {
+                ForEach(0..<Order.drinks.count, id: \.self) {
+                    Text(Order.drinks[$0])
+                }
+            }
+        }
+    }
+    
+    private var specialRequestSection: some View {
+        Section {
+            Toggle(isOn: $order.specialRequestEnabled.animation()) {
+                Text("Special Requests")
+            }
+            
+            if Order.drinks[order.drink].hasPrefix("Tea") {
+                Picker("Type of Tea", selection: $order.tea) {
+                    ForEach(0..<Order.teas.count, id: \.self) {
+                        Text(Order.teas[$0])
                     }
                 }
-            )
+            }
+            
+            if order.specialRequestEnabled {
+                Picker("Milk Types", selection: $order.milk) {
+                    ForEach(0..<Order.milkTypes.count, id: \.self) {
+                        Text(Order.milkTypes[$0])
+                    }
+                }
+                
+                if Order.drinks[order.drink].hasPrefix("Tea") {
+                    Picker("Condiments", selection: $order.teaCondiment) {
+                        ForEach(0..<Order.teaCondiments.count, id: \.self) {
+                            Text(Order.teaCondiments[$0])
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                } else {
+                    Picker("Syrup", selection: $order.syrup) {
+                        ForEach(0..<Order.syrups.count, id: \.self) {
+                            Text(Order.syrups[$0])
+                        }
+                    }
+                    
+                    Picker("Spinkles", selection: $order.spinkle) {
+                        ForEach(0..<Order.spinkles.count, id: \.self) {
+                            Text(Order.spinkles[$0])
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
+            }
+            
+            Stepper(value: $order.sugar, in: 0...6) {
+                Text("\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")")
+            }
+            
+            Toggle(isOn: $order.extraHot) {
+                Text("Extra Hot")
+            }
         }
-        .onAppear(perform: setOnAppear)
+    }
+    
+    private var takeOrderSection: some View {
+        Section {
+            Stepper(value: $order.quanity, in: 1...5) {
+                Text("Number of drinks: \(order.quanity)")
+            }
+                        
+            Button(action: {
+                self.appendOrderedDrink()
+                self.showningAddedView = true
+                self.saveUserDefaults()
+            }) {
+                Text("Add to Tray")
+            }
+            
+            Button(action: {
+                self.appendOrderedDrink()
+                self.showningConfirm.toggle()
+            }) {
+                Text("Quick Check Out")
+            }
+        }
+    }
+    
+    func appendOrderedDrink() {
+        let isTea = Order.drinks[self.order.drink].hasPrefix("Tea")
+        let drink = "\(Order.quanityString[self.order.quanity - 1]) \(Order.sizes[self.order.size]) \(isTea ? Order.teas[order.tea] : "") \(Order.drinks[order.drink])"
+        
+        let noTeaCondiment = Order.teaCondiments[order.teaCondiment].hasPrefix("None")
+        let teaCondiment = "with \(Order.teaCondiments[order.teaCondiment])"
+        
+        let noSyrup = Order.syrups[order.syrup].hasPrefix("None")
+        let syrup = "with \(Order.syrups[order.syrup]) syrup"
+        let noSprinkles = Order.spinkles[order.spinkle].hasPrefix("None")
+        let sprinkles = "\(noSyrup ? "with" : "and") \(Order.spinkles[order.spinkle]) sprinkles"
+        
+        
+        let milk = "\(Order.milkTypes[self.order.milk].hasPrefix("None") ? "No" : Order.milkTypes[self.order.milk]) Milk"
+        let sugar = "\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")"
+        
+        let drinkItem = OrderTray(drink: drink, isTea: isTea, specialRequest: self.order.specialRequestEnabled, noTeaCondiment: noTeaCondiment, teaCondiment: teaCondiment, noSyrup: noSyrup, syrup: syrup, noSprinkles: noSprinkles, sprinkles: sprinkles, milk: milk, extraHot: self.order.extraHot, sugar: sugar)
+        self.tray.orderedDrinks.append(drinkItem)
     }
     
     func saveUserDefaults() {
@@ -194,57 +188,6 @@ struct OrderView: View {
         userDefault.set(self.order.teaCondiment, forKey: "Condiment")
         userDefault.set(self.order.extraHot, forKey: "ExtraHot")
         userDefault.set(self.order.sugar, forKey: "Sugar")
-    }
-    
-    func setOnAppear() {
-        order.time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
-        
-        if minTime < maxTime {
-            isDisable = false
-        } else {
-            isDisable = true
-        }
-    }
-    
-    func addNotification(for order: Order) {
-        let center = UNUserNotificationCenter.current()
-        
-        let addRequest = {
-            let content = UNMutableNotificationContent()
-            content.title = "Your \(Order.drinks[order.drink]) is nearly ready"
-            content.body = "Please collect it in 5 mins"
-            content.sound = UNNotificationSound.default
-            
-            let time = Calendar.current.date(byAdding: .minute, value: -5, to: order.time)
-            let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: time ?? Date())
-            let hour = (timeComponents.hour ?? 9)
-            let minute = (timeComponents.minute ?? 0)
-            
-            var notificationComponets = DateComponents()
-            notificationComponets.hour = hour
-            notificationComponets.minute = minute
-            
-            
-            let trigger = UNCalendarNotificationTrigger(dateMatching: notificationComponets, repeats: false)
-            
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            center.add(request)
-        }
-        
-        center.getNotificationSettings { setting in
-            if setting.authorizationStatus == .authorized {
-                addRequest()
-            } else {
-                center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                    if success {
-                        addRequest()
-                    } else {
-                        print("No Alerts")
-                    }
-                }
-            }
-        }
-        
     }
 }
 
