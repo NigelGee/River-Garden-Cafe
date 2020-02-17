@@ -62,7 +62,7 @@ struct LoyaltyCardView: View {
                 Spacer()
                 
                 if reader.numberOfStamps >= 7 {
-                    Button("\(reader.numberOfStamps / 7) Free Coffee\(reader.numberOfStamps / 7 < 2 ? "" : "s")") {
+                    Button("\(reader.numberOfStamps / 7) Free Hot Drink\(reader.numberOfStamps / 7 < 2 ? "" : "s")") {
                         self.reader.addStamp(redeem: true)
                     }
                     .buttonStyle(colour: .red)
@@ -77,11 +77,9 @@ struct LoyaltyCardView: View {
             }
             .navigationBarTitle("Loyalty Card", displayMode: .inline)
         }
-        .alert(isPresented: $reader.showningWrongStamp) {
-            Alert(title: Text("Wrong Stamp"), message: Text("Please try again!"), dismissButton: .default(Text("OK")))
+        .alert(isPresented: $reader.showningAlert) {
+            Alert(title: Text(reader.title), message: Text(reader.message), dismissButton: .default(Text("OK")))
         }
-        //     TODO:- get 2nd Alert to show
-        //                Alert(title: Text("Scanning Not Supported"), message: Text("Please use another device that supports NFC"), dismissButton: .default(Text("OK")))
     }
 }
 

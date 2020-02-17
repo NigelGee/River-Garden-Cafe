@@ -66,20 +66,12 @@ struct CheckOutView: View {
         .disabled(tray.orderedDrinks.isEmpty)
             .sheet(isPresented: $showConfrim) {
                 ConfrimOrderView()
-        }
+            }
     }
     
     func removeOrderedDrinks(at offsets: IndexSet) {
         tray.orderedDrinks.remove(atOffsets: offsets)
     }
-}
-
-struct CheckOutHeader: View {
-    
-    var body: some View {
-        Text("Hello World!")
-    }
-    
 }
 
 struct CheckOutView_Previews: PreviewProvider {

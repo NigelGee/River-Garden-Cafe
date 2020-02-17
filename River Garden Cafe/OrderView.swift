@@ -13,7 +13,6 @@ struct OrderView: View {
     @ObservedObject var tray = Tray()
         
     @State private var showningAddedView = false
-    @State private var showningConfirm = false
         
     var body: some View {
         ZStack {
@@ -49,16 +48,13 @@ struct OrderView: View {
             }
             
             if showningAddedView {
-                AddedView()
+                AddedNotificationView()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                             self.showningAddedView = false
                         }
                 }
             }
-        }
-        .sheet(isPresented: $showningConfirm) {
-            ConfrimOrderView()
         }
     }
     
@@ -141,24 +137,17 @@ struct OrderView: View {
                         
             Button(action: {
                 self.appendOrderedDrink()
-                self.showningAddedView = true
+                self.showningAddedView.toggle()
                 self.saveUserDefaults()
             }) {
                 Text("Add to Tray")
             }
-            
-            Button(action: {
-                self.appendOrderedDrink()
-                self.showningConfirm.toggle()
-            }) {
-                Text("Quick Check Out")
-            }
         }
     }
     
-    func appendOrderedDrink() {
+    private func appendOrderedDrink() {
         let isTea = Order.drinks[self.order.drink].hasPrefix("Tea")
-        let drink = "\(Order.quanityString[self.order.quanity - 1]) \(Order.sizes[self.order.size]) \(isTea ? Order.teas[order.tea] : "") \(Order.drinks[order.drink])"
+        let drink = "\(Order.quanityString[self.order.quanity - 1]) \(Order.sizes[self.order.size]) \(isTea ? Order.teas[order.tea] : "")\(Order.drinks[order.drink])"
         
         let noTeaCondiment = Order.teaCondiments[order.teaCondiment].hasPrefix("None")
         let teaCondiment = "with \(Order.teaCondiments[order.teaCondiment])"
@@ -176,7 +165,7 @@ struct OrderView: View {
         self.tray.orderedDrinks.append(drinkItem)
     }
     
-    func saveUserDefaults() {
+    private func saveUserDefaults() {
         let userDefault = UserDefaults.standard
         userDefault.set(self.order.size, forKey: "Size")
         userDefault.set(self.order.drink, forKey: "Drink")

@@ -27,7 +27,6 @@ struct OrderTray: Identifiable {
     let noSprinkles: Bool
     let sprinkles: String
     
-    
     let milk: String
     let extraHot: Bool
     let sugar: String

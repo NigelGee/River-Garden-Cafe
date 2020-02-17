@@ -14,8 +14,9 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
     var session: NFCNDEFReaderSession?
     
     @Published var numberOfStamps = UserDefaults.standard.integer(forKey: "NumberOfStamps")
-    @Published var showningWrongStamp = false
-    @Published var showningNoReader = NFCNDEFReaderSession.readingAvailable
+    @Published var showningAlert = false
+    @Published var title = ""
+    @Published var message = ""
     
     var adjustedStamp: Int {
         numberOfStamps % 7
@@ -24,19 +25,20 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
     private var isRedeemed = false
     
     private let addStampTag = "\u{2}enaddStampRGC"
-    private let redeemCoffeTag = "\u{2}enredeemDrinkRGC"
+    private let redeemDrinkTag = "\u{2}enredeemDrinkRGC"
     
     func addStamp(redeem: Bool) {
         guard NFCNDEFReaderSession.readingAvailable else {
-            showningNoReader = true
-            print("Scanning Not Supported")
+            title = "Scanning Not Supported"
+            message = "Please use a device that supports NFC"
+            showningAlert = true
             return
         }
         
         session = NFCNDEFReaderSession(delegate: self, queue: DispatchQueue.main, invalidateAfterFirstRead: true)
         if redeem {
             isRedeemed = true
-            session?.alertMessage = "Hold your iPhone near the Stamp to receive free coffee"
+            session?.alertMessage = "Hold your iPhone near the Stamp to receive free hot drink"
         } else {
             isRedeemed = false
             session?.alertMessage = "Hold your iPhone near the Stamp to add a stamp"
@@ -58,14 +60,13 @@ class Reader: NSObject, NFCNDEFReaderSessionDelegate, ObservableObject {
         if readerString == addStampTag && !isRedeemed {
             numberOfStamps += 1
             UserDefaults.standard.set(self.numberOfStamps, forKey: "NumberOfStamps")
-            print("Stamp")
-        } else if readerString == redeemCoffeTag && isRedeemed {
+        } else if readerString == redeemDrinkTag && isRedeemed {
             numberOfStamps -= 7
             UserDefaults.standard.set(self.numberOfStamps, forKey: "NumberOfStamps")
-            print("Coffee")
         } else {
-            showningWrongStamp = true
-            print("Fail")
+            title = "Wrong Stamp"
+            message = "Please try again!"
+            showningAlert = true
         }
     }
     
