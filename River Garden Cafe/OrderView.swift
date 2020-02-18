@@ -46,12 +46,13 @@ struct OrderView: View {
                     }
                 )
             }
+            .blur(radius: showningAddedView ? 5 : 0)
             
             if showningAddedView {
                 AddedNotificationView()
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            self.showningAddedView = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.showningAddedView.toggle()
                         }
                 }
             }
@@ -147,7 +148,7 @@ struct OrderView: View {
     
     private func appendOrderedDrink() {
         let isTea = Order.drinks[self.order.drink].hasPrefix("Tea")
-        let drink = "\(Order.quanityString[self.order.quanity - 1]) \(Order.sizes[self.order.size]) \(isTea ? Order.teas[order.tea] : "")\(Order.drinks[order.drink])"
+        let drink = "\(Order.quanityString[self.order.quanity - 1]) \(Order.sizes[self.order.size]) \(isTea ? "\(Order.teas[order.tea]) " : "")\(Order.drinks[order.drink])"
         
         let noTeaCondiment = Order.teaCondiments[order.teaCondiment].hasPrefix("None")
         let teaCondiment = "with \(Order.teaCondiments[order.teaCondiment])"

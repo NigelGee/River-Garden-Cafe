@@ -23,7 +23,6 @@ class Order: ObservableObject, Identifiable {
     
     @Published var drink = UserDefaults.standard.integer(forKey: "Drink")
     @Published var quanity = 1
-    @Published var time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
     
     @Published var specialRequestEnabled = UserDefaults.standard.bool(forKey: "SpecialRequest") {
         didSet {
@@ -44,6 +43,5 @@ class Order: ObservableObject, Identifiable {
     @Published var teaCondiment = UserDefaults.standard.integer(forKey: "Condiment")
     @Published var extraHot = UserDefaults.standard.bool(forKey: "ExtraHot")
     @Published var sugar = UserDefaults.standard.integer(forKey: "Sugar")
-    @Published var takeAway = false
-    
+   
 }

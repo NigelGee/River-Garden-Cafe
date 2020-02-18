@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8B12B37E23EF3A5F0034D7D1 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B12B37D23EF3A5F0034D7D1 /* Tray.swift */; };
 		8B52EF0F23E1A76000D5B904 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B52EF0E23E1A76000D5B904 /* TermsView.swift */; };
-		8B5CF8E723F8107B008B1B64 /* ConfrimOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5CF8E623F8107B008B1B64 /* ConfrimOrderView.swift */; };
 		8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */; };
 		8B8D72C423FA884F00FD11D9 /* AddedNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D72C323FA884F00FD11D9 /* AddedNotificationView.swift */; };
 		8B8EC25C23F0709B00B038FF /* CheckOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8EC25B23F0709B00B038FF /* CheckOutView.swift */; };
@@ -36,11 +35,10 @@
 /* Begin PBXFileReference section */
 		8B12B37D23EF3A5F0034D7D1 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
 		8B52EF0E23E1A76000D5B904 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TermsView.swift; path = "River Garden Cafe/TermsView.swift"; sourceTree = SOURCE_ROOT; };
-		8B5CF8E623F8107B008B1B64 /* ConfrimOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfrimOrderView.swift; sourceTree = "<group>"; };
 		8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		8B8D72C323FA884F00FD11D9 /* AddedNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedNotificationView.swift; sourceTree = "<group>"; };
 		8B8EC25B23F0709B00B038FF /* CheckOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutView.swift; sourceTree = "<group>"; };
-		8BD4870023DF342600EE1140 /* River Garden Cafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "River Garden Cafe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BD4870023DF342600EE1140 /* River Gardens Cafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "River Gardens Cafe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BD4870323DF342600EE1140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BD4870523DF342600EE1140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8BD4870723DF342600EE1140 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,7 +83,7 @@
 		8BD4870123DF342600EE1140 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8BD4870023DF342600EE1140 /* River Garden Cafe.app */,
+				8BD4870023DF342600EE1140 /* River Gardens Cafe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,7 +139,6 @@
 				8BD4872A23DF67DA00EE1140 /* WebView.swift */,
 				8B52EF0E23E1A76000D5B904 /* TermsView.swift */,
 				8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */,
-				8B5CF8E623F8107B008B1B64 /* ConfrimOrderView.swift */,
 				8B8D72C323FA884F00FD11D9 /* AddedNotificationView.swift */,
 			);
 			path = "SupportIng Views";
@@ -150,9 +147,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8BD486FF23DF342600EE1140 /* River Garden Cafe */ = {
+		8BD486FF23DF342600EE1140 /* River Gardens Cafe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8BD4871423DF342B00EE1140 /* Build configuration list for PBXNativeTarget "River Garden Cafe" */;
+			buildConfigurationList = 8BD4871423DF342B00EE1140 /* Build configuration list for PBXNativeTarget "River Gardens Cafe" */;
 			buildPhases = (
 				8BD486FC23DF342600EE1140 /* Sources */,
 				8BD486FD23DF342600EE1140 /* Frameworks */,
@@ -162,9 +159,9 @@
 			);
 			dependencies = (
 			);
-			name = "River Garden Cafe";
+			name = "River Gardens Cafe";
 			productName = "River Garden Cafe";
-			productReference = 8BD4870023DF342600EE1140 /* River Garden Cafe.app */;
+			productReference = 8BD4870023DF342600EE1140 /* River Gardens Cafe.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -182,7 +179,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8BD486FB23DF342600EE1140 /* Build configuration list for PBXProject "River Garden Cafe" */;
+			buildConfigurationList = 8BD486FB23DF342600EE1140 /* Build configuration list for PBXProject "River Gardens Cafe" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -195,7 +192,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8BD486FF23DF342600EE1140 /* River Garden Cafe */,
+				8BD486FF23DF342600EE1140 /* River Gardens Cafe */,
 			);
 		};
 /* End PBXProject section */
@@ -230,7 +227,6 @@
 				8BD4871C23DF354B00EE1140 /* Reader.swift in Sources */,
 				8BE62F3D23E726CC00F6C69D /* MailView.swift in Sources */,
 				8B65E7A923E2FDEC00A253AE /* PrivacyView.swift in Sources */,
-				8B5CF8E723F8107B008B1B64 /* ConfrimOrderView.swift in Sources */,
 				8BD4873323E00B1700EE1140 /* Order.swift in Sources */,
 				8BD4870823DF342600EE1140 /* ContentView.swift in Sources */,
 				8BD4872923DF605D00EE1140 /* InfoImageView.swift in Sources */,
@@ -385,7 +381,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.theappforest.River-Garden-Cafe";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "River Gardens Cafe";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -406,7 +402,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.theappforest.River-Garden-Cafe";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "River Gardens Cafe";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -415,7 +411,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8BD486FB23DF342600EE1140 /* Build configuration list for PBXProject "River Garden Cafe" */ = {
+		8BD486FB23DF342600EE1140 /* Build configuration list for PBXProject "River Gardens Cafe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BD4871223DF342B00EE1140 /* Debug */,
@@ -424,7 +420,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8BD4871423DF342B00EE1140 /* Build configuration list for PBXNativeTarget "River Garden Cafe" */ = {
+		8BD4871423DF342B00EE1140 /* Build configuration list for PBXNativeTarget "River Gardens Cafe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BD4871523DF342B00EE1140 /* Debug */,

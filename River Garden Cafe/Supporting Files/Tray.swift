@@ -9,11 +9,16 @@
 import Foundation
 
 class Tray: ObservableObject {
+    var id = UUID().uuidString
     @Published var orderedDrinks = [OrderTray]()
+    @Published var time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
+    @Published var takeaway = false
+    @Published var name = ""
 }
 
 struct OrderTray: Identifiable {
     var id = UUID()
+    
     let drink: String
    
     let isTea: Bool

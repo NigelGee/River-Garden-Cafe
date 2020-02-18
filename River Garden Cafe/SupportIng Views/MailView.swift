@@ -13,49 +13,71 @@ import MessageUI
 struct MailView: UIViewControllerRepresentable {
     
     @EnvironmentObject var order: Order
+    @EnvironmentObject var tray: Tray
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
     
     var mailSubject: String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        
-        let number = "\(Order.quanityString[order.quanity - 1]) "
-        let size = "\(Order.sizes[order.size]) "
-        var drink = ""
-        if Order.drinks[order.drink].hasPrefix("Tea") {
-            drink = "\(Order.teas[order.tea]) \(Order.drinks[order.drink]) "
-        } else {
-            drink = "\(Order.drinks[order.drink]) "
+        var name = ""
+        let takeaway = "\(tray.takeaway ? "Take-a-Way" : "Drink In")"
+        let time = formatter.string(from: tray.time)
+        if !tray.name.isEmpty {
+            name = "for \(tray.name)"
         }
-        let time = "@ \(formatter.string(from: order.time))"
-        
-        let subject = number + size + drink + time
+        let subject = "\(takeaway) order \(name) @ \(time)"
         
         return subject
     }
     
     var mailBody: String {
-        var special = ""
+        var body = ""
         
-        if order.specialRequestEnabled {
-            let milk = "\(Order.milkTypes[order.milk].hasPrefix("None") ? "No" : Order.milkTypes[order.milk]) Milk\n"
-            var extra = ""
-            var syrup = ""
-            if Order.drinks[order.drink].hasPrefix("Tea") {
-                extra = "\(Order.teaCondiments[order.teaCondiment].hasPrefix("None") ? "" : "with \(Order.teaCondiments[order.teaCondiment])\n")"
-            } else {
-                syrup = "\(Order.syrups[order.syrup].hasPrefix("None") ? "" : "with \(Order.syrups[order.syrup]) Syrup\n")"
-                extra = "\(Order.spinkles[order.spinkle].hasPrefix("None") ? "" : "with\(Order.spinkles[order.spinkle]) Spinkles\n")"
+        for item in tray.orderedDrinks {
+            var bodyItems = ""
+            var special = ""
+            
+            let drink = "\(item.drink)\n"
+            if item.specialRequest {
+                var syrup = ""
+                var extra = ""
+                if item.isTea {
+                    extra = "\(item.noTeaCondiment ? "" : "\(item.teaCondiment)\n")"
+                } else {
+                    syrup = "\(item.noSyrup ? "" : "\(item.syrup)\n")"
+                    extra = "\(item.noSprinkles ? "" : "\(item.sprinkles)\n")"
+                }
+                
+                let milk = "\(item.milk)\n"
+                special = milk + syrup + extra
             }
-            special = milk + syrup + extra
+            
+            let extraHot = "\(item.extraHot ? "Extra Hot\n" : "")"
+            let sugar = "\(item.sugar)\n\n"
+            bodyItems = drink + special + extraHot + sugar
+            body += bodyItems
         }
         
-        let sugar = "\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")\n"
-        let hot = "\(order.extraHot ? "Extra Hot\n" : "")"
-        let takeaway = "\(order.takeAway ? "Take-A-Way\n" : "Drink In\n")"
-        let info = "Pay in store\nType any additional information below"
-        let body = special + sugar + hot + takeaway + info
+//        var special = ""
+//        if order.specialRequestEnabled {
+//            let milk = "\(Order.milkTypes[order.milk].hasPrefix("None") ? "No" : Order.milkTypes[order.milk]) Milk\n"
+//            var extra = ""
+//            var syrup = ""
+//            if Order.drinks[order.drink].hasPrefix("Tea") {
+//                extra = "\(Order.teaCondiments[order.teaCondiment].hasPrefix("None") ? "" : "with \(Order.teaCondiments[order.teaCondiment])\n")"
+//            } else {
+//                syrup = "\(Order.syrups[order.syrup].hasPrefix("None") ? "" : "with \(Order.syrups[order.syrup]) Syrup\n")"
+//                extra = "\(Order.spinkles[order.spinkle].hasPrefix("None") ? "" : "with\(Order.spinkles[order.spinkle]) Spinkles\n")"
+//            }
+//            special = milk + syrup + extra
+//        }
+//
+//        let sugar = "\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")\n"
+//        let hot = "\(order.extraHot ? "Extra Hot\n" : "")"
+//        let takeaway = "\(tray.takeaway ? "Take-A-Way\n" : "Drink In\n")"
+//        let info = "Pay in store\nType any additional information below"
+//        let body = special + sugar + hot + takeaway + info
         
         return body
     }
