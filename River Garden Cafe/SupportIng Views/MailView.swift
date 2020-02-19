@@ -14,7 +14,7 @@ struct MailView: UIViewControllerRepresentable {
     
     @EnvironmentObject var order: Order
     @EnvironmentObject var tray: Tray
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) var presentationMode
     @Binding var result: Result<MFMailComposeResult, Error>?
     
     var mailSubject: String {
@@ -58,60 +58,55 @@ struct MailView: UIViewControllerRepresentable {
             bodyItems = drink + special + extraHot + sugar
             body += bodyItems
         }
-        
-//        var special = ""
-//        if order.specialRequestEnabled {
-//            let milk = "\(Order.milkTypes[order.milk].hasPrefix("None") ? "No" : Order.milkTypes[order.milk]) Milk\n"
-//            var extra = ""
-//            var syrup = ""
-//            if Order.drinks[order.drink].hasPrefix("Tea") {
-//                extra = "\(Order.teaCondiments[order.teaCondiment].hasPrefix("None") ? "" : "with \(Order.teaCondiments[order.teaCondiment])\n")"
-//            } else {
-//                syrup = "\(Order.syrups[order.syrup].hasPrefix("None") ? "" : "with \(Order.syrups[order.syrup]) Syrup\n")"
-//                extra = "\(Order.spinkles[order.spinkle].hasPrefix("None") ? "" : "with\(Order.spinkles[order.spinkle]) Spinkles\n")"
-//            }
-//            special = milk + syrup + extra
-//        }
-//
-//        let sugar = "\(order.sugar == 0 ? "No Sugar" : "\(order.sugar) teaspoon\(order.sugar == 1 ? "" : "s") of sugar")\n"
-//        let hot = "\(order.extraHot ? "Extra Hot\n" : "")"
-//        let takeaway = "\(tray.takeaway ? "Take-A-Way\n" : "Drink In\n")"
-//        let info = "Pay in store\nType any additional information below"
-//        let body = special + sugar + hot + takeaway + info
-        
+                
         return body
     }
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
         
-        @Binding var presentation: PresentationMode
+        @Binding var presentationMode: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
         
-        init(presentation: Binding<PresentationMode>, result: Binding<Result<MFMailComposeResult, Error>?>) {
-            _presentation = presentation
+        
+        init(presentationMode: Binding<PresentationMode>, result: Binding<Result<MFMailComposeResult, Error>?>) {
+            _presentationMode = presentationMode
             _result = result
         }
         
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
             defer {
-                $presentation.wrappedValue.dismiss()
+                $presentationMode.wrappedValue.dismiss()
             }
             guard error == nil else {
                 self.result = .failure(error!)
+                print(error!.localizedDescription)
                 return
             }
             self.result = .success(result)
+
+            switch result {
+                case .sent:
+                    print("sent")
+                case .saved:
+                    print("saved")
+                case .failed:
+                    print("failed")
+                case .cancelled:
+                    print("cancelled")
+                default:
+                    print("Unknown")
+            }
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(presentation: presentation, result: $result)
+        return Coordinator(presentationMode: presentationMode, result: $result)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
         let mailVC = MFMailComposeViewController()
         
-        mailVC.setToRecipients(["fabio12105@gmail.com"])
+        mailVC.setToRecipients(["nigel.gee@icloud.com"])
         mailVC.setSubject(mailSubject)
         mailVC.setMessageBody(mailBody, isHTML: false)
         mailVC.mailComposeDelegate = context.coordinator

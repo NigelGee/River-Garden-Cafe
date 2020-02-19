@@ -16,7 +16,7 @@ struct CheckOutView: View {
     @State private var result: Result<MFMailComposeResult, Error>? = nil
     @State private var isShowingMailView = false
     @State private var isDisable = false
-    
+        
     var minTime: Date {
         let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
         let hour = (timeComponents.hour ?? 8)
@@ -62,7 +62,7 @@ struct CheckOutView: View {
                         
                         if MFMailComposeViewController.canSendMail() {
                             Button(action: {
-                                self.addNotification(for: self.tray)
+//                                self.addNotification(for: self.tray)
                                 self.isShowingMailView = true
                             }) {
                                 Text("Confirm Order")
@@ -78,6 +78,7 @@ struct CheckOutView: View {
                         }
                     }
                 }
+                
                 Section(header: Text("Order Details")) {
                     List {
                         ForEach(tray.orderedDrinks) { orderDrink in
