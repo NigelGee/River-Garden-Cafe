@@ -16,7 +16,11 @@ struct CheckOutView: View {
     @State private var result: Result<MFMailComposeResult, Error>? = nil
     @State private var isShowingMailView = false
     @State private var isDisable = false
-        
+    @State private var sentMail = false
+    @State private var mailStatus: MFMailComposeResult? = nil
+    @State private var message = ""
+    @State private var showningAlert = false
+   
     var minTime: Date {
         let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
         let hour = (timeComponents.hour ?? 8)
@@ -29,17 +33,41 @@ struct CheckOutView: View {
     }
     var maxTime: Date {
         var components = DateComponents()
-        components.hour = 18
+        components.hour = 22
         components.minute = 30
         return Calendar.current.date(from: components) ?? Date()
     }
     
     var body: some View {
-        VStack {
+        if mailStatus != nil {
+            DispatchQueue.main.async {
+                switch self.mailStatus {
+                case .sent:
+                    self.tray.orderedDrinks.removeAll()
+                    self.addNotification(for: self.tray)
+                case .cancelled:
+                    self.showningAlert.toggle()
+                    self.message = "Please confirm your order"
+                case .saved:
+                    self.showningAlert.toggle()
+                    self.message = "Please check your draft inbox"
+                case .failed:
+                    self.showningAlert.toggle()
+                    self.message = "Ops. Something went wrong. Please try again"
+                default:
+                    self.showningAlert.toggle()
+                    self.message = "Ops. Something went wrong. Please try again"
+                }
+               self.mailStatus = nil
+            }
+        }
+        
+        return VStack {
             if tray.orderedDrinks.isEmpty {
                 Text("No Orders")
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
+                
             } else {
                 Form {
                     Section {
@@ -62,19 +90,19 @@ struct CheckOutView: View {
                         
                         if MFMailComposeViewController.canSendMail() {
                             Button(action: {
-//                                self.addNotification(for: self.tray)
                                 self.isShowingMailView = true
                             }) {
                                 Text("Confirm Order")
                             }
                             .disabled(isDisable)
                             .sheet(isPresented: $isShowingMailView) {
-                                MailView(result: self.$result).environmentObject(self.tray)
+                                MailView(result: self.$result, mailStatus: self.$mailStatus).environmentObject(self.tray)
                             }
                         } else {
                             Text("Device not congfigure to send Email for confirmation")
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
+                            
                         }
                     }
                 }
@@ -119,11 +147,20 @@ struct CheckOutView: View {
             }
         }
         .navigationBarTitle("Ordered Drink\(tray.orderedDrinks.count > 1 ? "s" : "")", displayMode: .inline)
+        .alert(isPresented: $showningAlert) {
+            Alert(title: Text("Order not sent!"), message: Text(message), dismissButton: .default(Text("OK")))
+        }
         .disabled(tray.orderedDrinks.isEmpty)
-        .onAppear(perform: setOnAppear)
+        .onAppear(perform: checkDate)
     }
     
-    private func setOnAppear() {
+    private func mailSent() {
+            print("mailSent()")
+            tray.orderedDrinks.removeAll()
+            addNotification(for: self.tray)
+    }
+    
+    private func checkDate() {
         tray.time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
         
         if minTime < maxTime {

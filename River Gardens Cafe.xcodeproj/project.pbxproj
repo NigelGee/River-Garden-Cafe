@@ -132,12 +132,12 @@
 		8BD4871823DF34BD00EE1140 /* SupportIng Views */ = {
 			isa = PBXGroup;
 			children = (
-				8B08AC7E23FD657200C36CF7 /* AddedNotiticationView.swift */,
 				8BE62F3C23E726CC00F6C69D /* MailView.swift */,
 				8BD4871D23DF362E00EE1140 /* StampView.swift */,
 				8BD4872823DF605D00EE1140 /* InfoImageView.swift */,
 				8BD4872623DF5ECB00EE1140 /* MapView.swift */,
 				8BD4872A23DF67DA00EE1140 /* WebView.swift */,
+				8B08AC7E23FD657200C36CF7 /* AddedNotiticationView.swift */,
 				8B52EF0E23E1A76000D5B904 /* TermsView.swift */,
 				8B65E7A823E2FDEC00A253AE /* PrivacyView.swift */,
 			);

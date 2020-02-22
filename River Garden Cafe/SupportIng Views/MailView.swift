@@ -11,11 +11,10 @@ import UIKit
 import MessageUI
 
 struct MailView: UIViewControllerRepresentable {
-    
-    @EnvironmentObject var order: Order
     @EnvironmentObject var tray: Tray
     @Environment(\.presentationMode) var presentationMode
     @Binding var result: Result<MFMailComposeResult, Error>?
+    @Binding var mailStatus: MFMailComposeResult?
     
     var mailSubject: String {
         let formatter = DateFormatter()
@@ -24,9 +23,9 @@ struct MailView: UIViewControllerRepresentable {
         let takeaway = "\(tray.takeaway ? "Take-a-Way" : "Drink In")"
         let time = formatter.string(from: tray.time)
         if !tray.name.isEmpty {
-            name = "for \(tray.name)"
+            name = " for \(tray.name)"
         }
-        let subject = "\(takeaway) order \(name) @ \(time)"
+        let subject = "\(takeaway) order\(name) @ \(time)"
         
         return subject
     }
@@ -66,11 +65,12 @@ struct MailView: UIViewControllerRepresentable {
         
         @Binding var presentationMode: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
+        @Binding var mailStatus: MFMailComposeResult?
         
-        
-        init(presentationMode: Binding<PresentationMode>, result: Binding<Result<MFMailComposeResult, Error>?>) {
+        init(presentationMode: Binding<PresentationMode>, result: Binding<Result<MFMailComposeResult, Error>?>, mailStatus: Binding<MFMailComposeResult?>) {
             _presentationMode = presentationMode
             _result = result
+            _mailStatus = mailStatus
         }
         
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
@@ -83,24 +83,13 @@ struct MailView: UIViewControllerRepresentable {
                 return
             }
             self.result = .success(result)
+            self.mailStatus = result
 
-            switch result {
-                case .sent:
-                    print("sent")
-                case .saved:
-                    print("saved")
-                case .failed:
-                    print("failed")
-                case .cancelled:
-                    print("cancelled")
-                default:
-                    print("Unknown")
-            }
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(presentationMode: presentationMode, result: $result)
+        return Coordinator(presentationMode: presentationMode, result: $result, mailStatus: $mailStatus)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
