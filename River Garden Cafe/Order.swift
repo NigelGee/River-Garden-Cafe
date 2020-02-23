@@ -10,7 +10,7 @@ import Foundation
 
 class Order: ObservableObject, Identifiable {
     
-    static let drinks = ["Latte", "Flat White", "Americano","Cappacino","Mocha","Hot Chocalate", "Tea"]
+    static let drinks = ["Latte", "Flat White", "Americano","Cappacino","Mocha","Hot Chocolate", "Tea"]
     static let syrups = ["None", "Vanilla", "Caramal", "Hazelnut"]
     static let milkTypes = ["Semi-Skimmed", "Skimmed", "Oatmeal", "None"]
     static let teas = ["English", "Earl Grey", "Green"]

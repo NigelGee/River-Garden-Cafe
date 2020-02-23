@@ -46,7 +46,7 @@ struct OrderView: View {
                     }
                 )
             }
-            .blur(radius: showningAddedView ? 5 : 0)
+            .blur(radius: showningAddedView ? 3 : 0)
             
             if showningAddedView {
                 AddedNotificationView()

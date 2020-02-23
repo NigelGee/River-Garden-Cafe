@@ -20,7 +20,8 @@ struct CheckOutView: View {
     @State private var mailStatus: MFMailComposeResult? = nil
     @State private var message = ""
     @State private var showningAlert = false
-   
+    @State private var value: CGFloat = 0
+    
     var minTime: Date {
         let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
         let hour = (timeComponents.hour ?? 8)
@@ -58,7 +59,7 @@ struct CheckOutView: View {
                     self.showningAlert.toggle()
                     self.message = "Ops. Something went wrong. Please try again"
                 }
-               self.mailStatus = nil
+                self.mailStatus = nil
             }
         }
         
@@ -69,21 +70,62 @@ struct CheckOutView: View {
                     .foregroundColor(.secondary)
                 
             } else {
-                Form {
-                    Section {
-                        TextField("Enter Name", text: $tray.name)
+                List {
+                    ForEach(tray.orderedDrinks) { orderDrink in
+                        VStack(alignment: .leading) {
+                            
+                            Text(orderDrink.drink)
+                                .font(.headline)
+                            
+                            Group {
+                                if orderDrink.specialRequest {
+                                    if orderDrink.isTea {
+                                        if !orderDrink.noTeaCondiment {
+                                            Text(orderDrink.teaCondiment)
+                                        }
+                                    } else {
+                                        if !orderDrink.noSyrup {
+                                            Text(orderDrink.syrup)
+                                        }
+                                        if !orderDrink.noSprinkles {
+                                            Text(orderDrink.sprinkles)
+                                        }
+                                    }
+                                    Text(orderDrink.milk)
+                                }
+                                
+                                if orderDrink.extraHot {
+                                    Text("Extra hot")
+                                }
+                                Text(orderDrink.sugar)
+                            }
+                            .foregroundColor(.secondary)
+                        }
                     }
+                    .onDelete(perform: removeOrderedDrinks)
+                    .animation(.easeIn)
+                }
+                
+                Form {
+                    
                     
                     Section {
-                        
                         if maxTime < minTime {
                             Text("Pre-order unavailable, Please try tommorrow")
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
                         } else {
                             DatePicker("Select Time", selection: $tray.time, in: minTime...maxTime ,displayedComponents: .hourAndMinute)
+                            
                         }
+                    }
+                    
+                    Section {
+                        TextField("Enter Name", text: $tray.name)
                         
+                    }
+                    
+                    Section {
                         Toggle(isOn: $tray.takeaway) {
                             Text("Take-a-Way")
                         }
@@ -106,44 +148,6 @@ struct CheckOutView: View {
                         }
                     }
                 }
-                
-                Section(header: Text("Order Details")) {
-                    List {
-                        ForEach(tray.orderedDrinks) { orderDrink in
-                            VStack(alignment: .leading) {
-                                
-                                Text(orderDrink.drink)
-                                    .font(.headline)
-                                
-                                Group {
-                                    if orderDrink.specialRequest {
-                                        if orderDrink.isTea {
-                                            if !orderDrink.noTeaCondiment {
-                                                Text(orderDrink.teaCondiment)
-                                            }
-                                        } else {
-                                            if !orderDrink.noSyrup {
-                                                Text(orderDrink.syrup)
-                                            }
-                                            if !orderDrink.noSprinkles {
-                                                Text(orderDrink.sprinkles)
-                                            }
-                                        }
-                                        Text(orderDrink.milk)
-                                    }
-                                    
-                                    if orderDrink.extraHot {
-                                        Text("Extra hot")
-                                    }
-                                    Text(orderDrink.sugar)
-                                }
-                                .foregroundColor(.secondary)
-                            }
-                        }
-                        .onDelete(perform: removeOrderedDrinks)
-                    }
-                }
-                
             }
         }
         .navigationBarTitle("Ordered Drink\(tray.orderedDrinks.count > 1 ? "s" : "")", displayMode: .inline)
@@ -151,16 +155,21 @@ struct CheckOutView: View {
             Alert(title: Text("Order not sent!"), message: Text(message), dismissButton: .default(Text("OK")))
         }
         .disabled(tray.orderedDrinks.isEmpty)
+        .offset(y: -self.value)
+        .animation(.spring())
         .onAppear(perform: checkDate)
     }
     
-    private func mailSent() {
-            print("mailSent()")
-            tray.orderedDrinks.removeAll()
-            addNotification(for: self.tray)
-    }
-    
     private func checkDate() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { key in
+            let value = key.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+            self.value = value.height
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { key in
+            self.value = 0
+        }
+        
         tray.time = Calendar.current.date(byAdding: .minute, value: 10, to: Date()) ?? Date()
         
         if minTime < maxTime {

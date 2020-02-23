@@ -14,66 +14,71 @@ struct LoyaltyCardView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Text("HAVE YOUR \(numberStamp)th HOT DRINK ON US!")
-                    .font(.caption)
-                    .padding(.top)
-                    .accessibility(label: Text("have your \(numberStamp)th hot drink on us"))
-                
-                VStack{
-                    ForEach(1..<(numberStamp / 2) + 1, id: \.self) { row in
-                        VStack {
-                            Spacer()
-                            HStack {
-                                ForEach(0..<2, id: \.self) { col in
-                                    HStack{
-                                        Spacer()
-                                        ZStack {
-                                            Capsule()
-                                                .foregroundColor(.clear)
-                                                .frame(width: 70, height: 70)
-                                                .overlay(Capsule().stroke(Color.secondary, lineWidth: 2))
-                                            if (col * self.numberStamp / 2) + row <= self.reader.adjustedStamp {
-                                                StampView()
-                                            }
-                                            
-                                            if (col * self.numberStamp / 2) + row == self.numberStamp {
-                                                ZStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color("Start"), Color("End")]), startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    Text("HAVE YOUR \(numberStamp)th HOT DRINK ON US!")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .padding(.top)
+                        .accessibility(label: Text("have your \(numberStamp)th hot drink on us"))
+                    
+                    VStack{
+                        ForEach(1..<(numberStamp / 2) + 1, id: \.self) { row in
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    ForEach(0..<2, id: \.self) { col in
+                                        HStack{
+                                            Spacer()
+                                            ZStack {
+                                                Capsule()
+                                                    .foregroundColor(.clear)
+                                                    .frame(width: 70, height: 70)
+                                                    .overlay(Capsule().stroke(Color.secondary, lineWidth: 2))
+                                                if (col * self.numberStamp / 2) + row <= self.reader.adjustedStamp {
                                                     StampView()
-                                                    Text("FREE")
-                                                        .fontWeight(.heavy)
-                                                        .font(.system(size: 18))
-                                                        .foregroundColor(.black)
                                                 }
                                                 
+                                                if (col * self.numberStamp / 2) + row == self.numberStamp {
+                                                    ZStack {
+                                                        StampView()
+                                                        Text("FREE")
+                                                            .fontWeight(.heavy)
+                                                            .font(.system(size: 18))
+                                                            .foregroundColor(.black)
+                                                    }
+                                                    
+                                                }
                                             }
+                                            Spacer()
                                         }
-                                        Spacer()
                                     }
                                 }
+                                Spacer()
                             }
-                            Spacer()
                         }
                     }
-                }
-                .accessibilityElement(children: .ignore)
-                .accessibility(label: Text( "\(self.reader.adjustedStamp) Stamp\(self.reader.adjustedStamp < 2 ? "" : "s")"))
-                
-                Spacer()
-                
-                if reader.numberOfStamps >= 7 {
-                    Button("\(reader.numberOfStamps / 7) Free Hot Drink\(reader.numberOfStamps / 7 < 2 ? "" : "s")") {
-                        self.reader.addStamp(redeem: true)
+                    .accessibilityElement(children: .ignore)
+                    .accessibility(label: Text( "\(self.reader.adjustedStamp) Stamp\(self.reader.adjustedStamp < 2 ? "" : "s")"))
+                    
+                    Spacer()
+                    
+                    if reader.numberOfStamps >= 7 {
+                        Button("\(reader.numberOfStamps / 7) Free Hot Drink\(reader.numberOfStamps / 7 < 2 ? "" : "s")") {
+                            self.reader.addStamp(redeem: true)
+                        }
+                        .buttonStyle(colour: .red)
                     }
-                    .buttonStyle(colour: .red)
+                    
+                    Button("Add Stamp") {
+                        self.reader.addStamp(redeem: false)
+                    }
+                    .buttonStyle(colour: .blue)
+                    .padding(.bottom)
+                    
                 }
-                
-                Button("Add Stamp") {
-                    self.reader.addStamp(redeem: false)
-                }
-                .buttonStyle(colour: .blue)
-                .padding(.bottom)
-                
             }
             .navigationBarTitle("Loyalty Card", displayMode: .inline)
         }
