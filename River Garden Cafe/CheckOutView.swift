@@ -107,8 +107,6 @@ struct CheckOutView: View {
                 }
                 
                 Form {
-                    
-                    
                     Section {
                         if maxTime < minTime {
                             Text("Pre-order unavailable, Please try tommorrow")
@@ -151,6 +149,7 @@ struct CheckOutView: View {
             }
         }
         .navigationBarTitle("Ordered Drink\(tray.orderedDrinks.count > 1 ? "s" : "")", displayMode: .inline)
+        .navigationBarItems(trailing: EditButton())
         .alert(isPresented: $showningAlert) {
             Alert(title: Text("Order not sent!"), message: Text(message), dismissButton: .default(Text("OK")))
         }

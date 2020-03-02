@@ -25,7 +25,7 @@ struct LoyaltyCardView: View {
                         .accessibility(label: Text("have your \(numberStamp)th hot drink on us"))
                     
                     VStack{
-                        ForEach(1..<(numberStamp / 2) + 1, id: \.self) { row in
+                        ForEach(1...(numberStamp / 2), id: \.self) { row in
                             VStack {
                                 Spacer()
                                 HStack {
@@ -33,10 +33,10 @@ struct LoyaltyCardView: View {
                                         HStack{
                                             Spacer()
                                             ZStack {
-                                                Capsule()
+                                                Circle()
                                                     .foregroundColor(.clear)
-                                                    .frame(width: 70, height: 70)
-                                                    .overlay(Capsule().stroke(Color.secondary, lineWidth: 2))
+                                                    .frame(height: 70)
+                                                    .overlay(Circle().stroke(Color.secondary, lineWidth: 2))
                                                 if (col * self.numberStamp / 2) + row <= self.reader.adjustedStamp {
                                                     StampView()
                                                 }

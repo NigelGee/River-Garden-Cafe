@@ -11,23 +11,16 @@ import SwiftUI
 struct OrderView: View {
     @ObservedObject var order = Order()
     @ObservedObject var tray = Tray()
-        
+    
     @State private var showningAddedView = false
-        
+    
     var body: some View {
         ZStack {
             NavigationView {
-                VStack {
-                    Form {
-                        
-                        drinkTypeSection
-                        specialRequestSection
-                        takeOrderSection
-                        
-                    }
-                    Text("Note: check email order is correct and click send")
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
+                Form {
+                    drinkTypeSection
+                    specialRequestSection
+                    takeOrderSection
                 }
                 .navigationBarTitle("Pre-order", displayMode: .inline)
                 .navigationBarItems(trailing:
@@ -135,7 +128,7 @@ struct OrderView: View {
             Stepper(value: $order.quanity, in: 1...5) {
                 Text("Number of drinks: \(order.quanity)")
             }
-                        
+            
             Button(action: {
                 self.appendOrderedDrink()
                 self.showningAddedView.toggle()
