@@ -47,7 +47,7 @@ struct OrderView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.showningAddedView.toggle()
                         }
-                }
+                    }
             }
         }
     }

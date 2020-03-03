@@ -17,6 +17,7 @@ struct LoyaltyCardView: View {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Color("Start"), Color("End")]), startPoint: .top, endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
+                
                 VStack {
                     Text("HAVE YOUR \(numberStamp)th HOT DRINK ON US!")
                         .font(.caption)
@@ -49,7 +50,6 @@ struct LoyaltyCardView: View {
                                                             .font(.system(size: 18))
                                                             .foregroundColor(.black)
                                                     }
-                                                    
                                                 }
                                             }
                                             Spacer()

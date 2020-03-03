@@ -32,6 +32,7 @@ struct CheckOutView: View {
         components.minute = minute
         return Calendar.current.date(from: components) ?? Date()
     }
+    
     var maxTime: Date {
         var components = DateComponents()
         components.hour = 22
@@ -57,7 +58,7 @@ struct CheckOutView: View {
                     self.message = "Ops. Something went wrong. Please try again"
                 default:
                     self.showningAlert.toggle()
-                    self.message = "Ops. Something went wrong. Please try again"
+                    self.message = "Unknown Error"
                 }
                 self.mailStatus = nil
             }
@@ -117,10 +118,9 @@ struct CheckOutView: View {
                             
                         }
                     }
-                    
+
                     Section {
                         TextField("Enter Name", text: $tray.name)
-                        
                     }
                     
                     Section {
@@ -130,6 +130,7 @@ struct CheckOutView: View {
                         
                         if MFMailComposeViewController.canSendMail() {
                             Button(action: {
+                                UIApplication.shared.endEditing()
                                 self.isShowingMailView = true
                             }) {
                                 Text("Confirm Order")
@@ -220,6 +221,12 @@ struct CheckOutView: View {
     
     private func removeOrderedDrinks(at offsets: IndexSet) {
         tray.orderedDrinks.remove(atOffsets: offsets)
+    }
+}
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

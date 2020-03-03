@@ -30,7 +30,6 @@ struct ContentView: View {
                     Text("Order")
             }
             
-            
             SettingsView()
                 .tabItem {
                     Image(systemName: "gear")
